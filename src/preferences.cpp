@@ -92,8 +92,8 @@ bool Preferences::Load(const wxString& filename) {
         node = node->GetNext();
     }
 
-    wxLogMessage("Preferences loaded successfully from '%s'.",
-                 configFilePath.GetFullPath());
+    // wxLogMessage("Preferences loaded successfully from '%s'.",
+    //              configFilePath.GetFullPath());
     return true;
 }
 
@@ -158,8 +158,8 @@ bool Preferences::Save(const wxString& filename) {
         return false;
     }
 
-    wxLogMessage("Preferences saved successfully to '%s'.",
-                 configFilePath.GetFullPath());
+    // wxLogMessage("Preferences saved successfully to '%s'.",
+    //              configFilePath.GetFullPath());
     return true;
 }
 

@@ -3,7 +3,7 @@
 
 #include <wx/wx.h>
 
-#include <string>
+// #include <string>
 
 // Window dimensions
 constexpr int MAIN_WINDOW_WIDTH = 800;

@@ -1,6 +1,8 @@
 #include "frame.h"
 
 #include <wx/artprov.h>
+#include <wx/headercol.h>
+#include <wx/headerctrl.h>  // Include for wxHeaderCtrl
 
 #include "constants.h"
 #include "preferencesreader.h"
@@ -53,6 +55,32 @@ TopFrame::TopFrame(wxEvtHandler *controller)
     // wxEXPAND ensures it takes up available width/height
     // wxALL and 10 add a 10-pixel border around the panel within the sizer
     vbox->Add(containerPanel, 1, wxEXPAND | wxALL, 10);
+
+    //
+    // Container panel
+    //
+
+    // We cannot use wxHD_DEFAULT_STYLE here as this allows re-ordering of
+    // header columns. So instead, 0x0000 is passed as STYLE.
+    wxHeaderCtrlSimple *header =
+        new wxHeaderCtrlSimple(containerPanel, wxID_ANY, wxDefaultPosition,
+                               wxDefaultSize, 0x0000);  // wxHD_DEFAULT_STYLE);
+    // Append exactly three columns
+    wxHeaderColumnSimple headerColTitle("Title", 100, wxALIGN_CENTER);
+    wxHeaderColumnSimple headerColDuration("Duration", 150, wxALIGN_CENTER);
+    wxHeaderColumnSimple headerColControls("Controls", 200, wxALIGN_CENTER);
+    header->AppendColumn(headerColTitle);
+    header->AppendColumn(headerColDuration);
+    header->AppendColumn(headerColControls);
+
+    // 2. Main vertical sizer
+    wxBoxSizer *vsizer = new wxBoxSizer(wxVERTICAL);
+    vsizer->Add(header, 0, wxEXPAND);
+    containerPanel->SetSizer(vsizer);
+
+    //
+    // Container panel end
+    //
 
     // Create a button below the panel inside the frame
     wxButton *button = new wxButton(this, wxID_ANY, "Click Me",
