@@ -38,8 +38,8 @@ class ClockController : IClockController {
 
     // Explicitly delete the copy constructor and copy assignment operator
     // to prevent cloning.
-    ClockController(const ClockController*) = delete;
     ClockController& operator=(const ClockController*) = delete;
+    ClockController(const ClockController&) = delete;
 
    private:
     // A reference to the mediator, which allows the controller to

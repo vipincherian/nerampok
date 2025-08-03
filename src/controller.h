@@ -25,16 +25,20 @@ class Controller : IController, IClockMediator {
     // wxFrame *frame;
 
    public:
-    Controller();   // Constructor declaration
-    ~Controller();  // Destructor declaration
+    Controller();            // Constructor declaration
+    ~Controller() override;  // Destructor declaration
+    // Explicitly delete the copy constructor and copy assignment operator
+    // to prevent cloning.
+    Controller &operator=(const Controller *) = delete;
+    Controller(const Controller &) = delete;
     // void OnGreeting(const wxCommandEvent &event);
     // void OnExit(const wxCommandEvent &event);
     // void OnNewTimer(const wxCommandEvent &event);
     // void OnFrameClose(wxCloseEvent &event);
-    void Quit();
-    void AddClock();
-    void CleanUp();
-    void ReportClock();
+    void Quit() override;
+    void AddClock() override;
+    void CleanUp() override;
+    void ReportClock() override;
     int getSmallestAvailableCockId();
     void AddToUsedClockIds(int idToAdd);
     // void run();  // Example method declaration
