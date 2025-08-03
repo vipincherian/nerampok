@@ -3,7 +3,9 @@ enum { ID_Hello = 1 };
 
 wxDEFINE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
 
-MyFrame::MyFrame() : wxFrame(NULL, wxID_ANY, "Hello World") {
+MyFrame::MyFrame(wxEvtHandler *ctrller)
+    : wxFrame(NULL, wxID_ANY, "Hello World") {
+    parentController = ctrller;
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
                      "Help string shown in status bar for this menu item");
@@ -84,10 +86,10 @@ void MyFrame::OnHello(const wxCommandEvent &event) {
     }
 }
 
-void MyFrame::SetController(wxEvtHandler *controller) {
-    parentController = controller;
-    // this->PushEventHandler(parentController);
-}
+// void MyFrame::SetController(wxEvtHandler *controller) {
+//     parentController = controller;
+//     // this->PushEventHandler(parentController);
+// }
 
 void MyFrame::OnButtonClick(const wxCommandEvent &event) {
     std::cout << "On MyFrame::OnButtonClick";

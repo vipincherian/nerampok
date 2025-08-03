@@ -10,9 +10,9 @@ Controller::Controller() : wxEvtHandler() {
     // frame = new MyFrame();
     // frame->Show(true);
     // frame.SetController(this);
-    frame = new MyFrame();
+    frame = new MyFrame(this);
     frame->Show(true);
-    frame->SetController(this);
+    // frame->SetController(this);
     // frame->Bind(wxEVT_MENU, &Controller::OnGreeting, this, ID_Hello);
     frame->Bind(wxEVT_MENU, &Controller::OnExit, this, wxID_EXIT);
     this->Bind(FRAME_GREET_EVENT, &Controller::OnGreeting, this);

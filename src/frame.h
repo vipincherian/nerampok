@@ -12,8 +12,8 @@ wxDECLARE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
 
 class MyFrame : public wxFrame {
    public:
-    MyFrame();
-    void SetController(wxEvtHandler *controller);
+    MyFrame(wxEvtHandler *controller);
+    // void SetController(wxEvtHandler *controller);
 
    private:
     wxEvtHandler *parentController = NULL;
