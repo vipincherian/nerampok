@@ -10,7 +10,11 @@ Constants& Constants::getInstance() {
 }
 
 // Private constructor where all the constants are initialized.
-Constants::Constants() { appTitle = APP_TITLE; }
+Constants::Constants() : appTitle(APP_TITLE + " " + APP_VERSION) {
+    // appTitle = APP_TITLE + " " + APP_VERSION;
+}
 
 // Implementations of the getter methods.
 wxString Constants::getAppTitle() const { return appTitle; }
+
+wxString Constants::getAppConfigDirName() const { return APP_TITLE.Lower(); }

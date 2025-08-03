@@ -6,6 +6,10 @@ enum { ID_NewTimer = 1 };
 
 Controller::Controller() : wxEvtHandler() {
     std::cout << "Controller constructed\n";
+
+    // Load preferences
+    // wxStandardPa
+    preferences.Load();
     // Initialization logic here
     // frame = new MyFrame();
     // frame->Show(true);
@@ -20,6 +24,7 @@ Controller::Controller() : wxEvtHandler() {
 }
 
 Controller::~Controller() {
+    preferences.Save();
     std::cout << "Controller destructed\n";
     // Cleanup logic here
 }

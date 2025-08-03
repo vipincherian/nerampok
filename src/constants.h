@@ -11,7 +11,8 @@ constexpr int MAIN_WINDOW_HEIGHT = 600;
 
 // UI strings
 const wxString APP_TITLE = "Nerampok";
-const wxString BUTTON_LABEL = "Click Me!";
+const wxString APP_VERSION = "0.1a";
+const wxString PREF_FILE_NAME = "preferences.xml";
 const wxString STATUS_MESSAGE = "Application is ready.";
 
 // Other application-specific constants
@@ -32,6 +33,7 @@ class Constants {
 
     // Getter methods for accessing the constant values.
     wxString getAppTitle() const;
+    wxString getAppConfigDirName() const;
 
    private:
     // Private constructor to prevent direct instantiation.
@@ -43,6 +45,7 @@ class Constants {
 
     // Member variables to hold the constant values.
     wxString appTitle = APP_TITLE;
+    wxString appConfigDirName = APP_TITLE;
 };
 
 #endif  // CONSTANTS_H

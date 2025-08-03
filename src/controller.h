@@ -10,10 +10,12 @@
 #include <iostream>
 
 #include "frame.h"
+#include "preferences.h"
 
 class Controller : wxEvtHandler {
    private:
     TopFrame *frame;
+    Preferences preferences;
     // wxFrame *frame;
 
    public:

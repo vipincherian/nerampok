@@ -19,6 +19,8 @@ set(SOURCES
     controller.cpp
     frame.cpp
     constants.cpp
+    preferences.cpp
+    preferencesreader.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
