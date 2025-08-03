@@ -66,9 +66,11 @@ TopFrame::TopFrame(IController *controller)
         new wxHeaderCtrlSimple(containerPanel, wxID_ANY, wxDefaultPosition,
                                wxDefaultSize, 0x0000);  // wxHD_DEFAULT_STYLE);
     // Append exactly three columns
+    wxHeaderColumnSimple headerColSelect("", 100, wxALIGN_CENTER);
     wxHeaderColumnSimple headerColTitle("Title", 100, wxALIGN_CENTER);
     wxHeaderColumnSimple headerColDuration("Duration", 150, wxALIGN_CENTER);
     wxHeaderColumnSimple headerColControls("Controls", 200, wxALIGN_CENTER);
+    header->AppendColumn(headerColSelect);
     header->AppendColumn(headerColTitle);
     header->AppendColumn(headerColDuration);
     header->AppendColumn(headerColControls);
