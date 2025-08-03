@@ -10,7 +10,7 @@
 
 wxDEFINE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
 
-TopFrame::TopFrame(wxEvtHandler *controller)
+TopFrame::TopFrame(IController *controller)
     : wxFrame(NULL, wxID_ANY, Constants::getInstance().getAppTitle()) {
     parentController = controller;
 
@@ -102,13 +102,8 @@ TopFrame::TopFrame(wxEvtHandler *controller)
     Bind(wxEVT_MENU, &TopFrame::OnAbout, this, wxID_ABOUT);
     // Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
     button->Bind(wxEVT_BUTTON, &TopFrame::OnButtonClick, this);
-
-    // Restore saved position and dimensions
-
-    SetPosition(wxPoint(PreferencesReader::getInstance().getFramePositionX(),
-                        PreferencesReader::getInstance().getFramePositionY()));
-    SetSize(wxSize(PreferencesReader::getInstance().getFrameWidth(),
-                   PreferencesReader::getInstance().getFrameHeight()));
+    Bind(wxEVT_CLOSE_WINDOW, &TopFrame::OnFrameClose, this);
+    Bind(wxEVT_SHOW, &TopFrame::OnShow, this);
 }
 
 void TopFrame::OnExit(const wxCommandEvent &event) {
@@ -129,15 +124,16 @@ void TopFrame::OnAbout(const wxCommandEvent &event) {
 }
 
 void TopFrame::OnNewTimer(const wxCommandEvent &event) {
-    // double scaleFactor = wxWindow::GetDPIScaleFactor();
-    const wxSize sizeM = this->GetTextExtent("M");
-    wxString message = wxString::Format("Scaling facator is %d", sizeM.y);
-    wxMessageBox(message);
-    wxASSERT(parentController != NULL);
-    wxCommandEvent customEvent(FRAME_GREET_EVENT);
-    customEvent.SetString("Custom event string");
-    // Post the custom event to the panel (send a message to it)
-    wxPostEvent(parentController, customEvent);
+    // // double scaleFactor = wxWindow::GetDPIScaleFactor();
+    // const wxSize sizeM = this->GetTextExtent("M");
+    // wxString message = wxString::Format("Scaling facator is %d", sizeM.y);
+    // wxMessageBox(message);
+    // wxASSERT(parentController != NULL);
+    // wxCommandEvent customEvent(FRAME_GREET_EVENT);
+    // customEvent.SetString("Custom event string");
+    // // Post the custom event to the panel (send a message to it)
+    // wxPostEvent(parentController, customEvent);
+    parentController->AddTimer();
 }
 
 // void MyFrame::SetController(wxEvtHandler *controller) {
@@ -147,10 +143,27 @@ void TopFrame::OnNewTimer(const wxCommandEvent &event) {
 
 void TopFrame::OnButtonClick(const wxCommandEvent &event) {
     std::cout << "On MyFrame::OnButtonClick";
-    if (parentController != NULL) {
-        wxCommandEvent customEvent(FRAME_GREET_EVENT);
-        customEvent.SetString("Custom event string");
-        // Post the custom event to the panel (send a message to it)
-        wxPostEvent(parentController, customEvent);
-    }
+    // if (parentController != NULL) {
+    //     wxCommandEvent customEvent(FRAME_GREET_EVENT);
+    //     customEvent.SetString("Custom event string");
+    //     // Post the custom event to the panel (send a message to it)
+    //     wxPostEvent(parentController, customEvent);
+    // }
+}
+
+void TopFrame::OnFrameClose(wxCloseEvent &event) {
+    parentController->CleanUp();
+    event.Skip();
+}
+
+void TopFrame::OnShow(wxShowEvent &event) {
+    std::cout << "On MyFrame::OnShow";
+    // Restore saved position and dimensions
+
+    SetPosition(wxPoint(PreferencesReader::getInstance().getFramePositionX(),
+                        PreferencesReader::getInstance().getFramePositionY()));
+    SetSize(wxSize(PreferencesReader::getInstance().getFrameWidth(),
+                   PreferencesReader::getInstance().getFrameHeight()));
+    // Always skip the event to allow default processing to continue.
+    event.Skip();
 }

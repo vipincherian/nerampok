@@ -6,7 +6,7 @@
 
 // #include "frame.h"
 
-Controller::Controller() : wxEvtHandler() {
+Controller::Controller() : IController() {
     std::cout << "Controller constructed\n";
 
     // Load preferences
@@ -22,10 +22,10 @@ Controller::Controller() : wxEvtHandler() {
     frame->Show(true);
     // frame->SetController(this);
     // frame->Bind(wxEVT_MENU, &Controller::OnGreeting, this, ID_Hello);
-    frame->Bind(wxEVT_MENU, &Controller::OnExit, this, wxID_EXIT);
-    frame->Bind(wxEVT_MENU, &Controller::OnNewTimer, this, wxID_NEW);
-    frame->Bind(wxEVT_CLOSE_WINDOW, &Controller::OnFrameClose, this);
-    this->Bind(FRAME_GREET_EVENT, &Controller::OnGreeting, this);
+    // frame->Bind(wxEVT_MENU, &Controller::OnExit, this, wxID_EXIT);
+    // frame->Bind(wxEVT_MENU, &Controller::OnNewTimer, this, wxID_NEW);
+    // frame->Bind(wxEVT_CLOSE_WINDOW, &Controller::OnFrameClose, this);
+    // this->Bind(FRAME_GREET_EVENT, &Controller::OnGreeting, this);
 }
 
 Controller::~Controller() {
@@ -36,33 +36,46 @@ Controller::~Controller() {
 
 // void Controller::run() { std::cout << "Controller running\n"; }
 
-void Controller::OnExit(const wxCommandEvent &event) {
-    // frame.Close(true);
-    std::cout << "Reached OnExit\n";
-    // this->Close(true);
-    frame->Close(true);
-}
+// void Controller::OnExit(const wxCommandEvent &event) {
+//     // frame.Close(true);
+//     std::cout << "Reached OnExit\n";
+//     // this->Close(true);
+//     frame->Close(true);
+// }
 
-void Controller::OnNewTimer(const wxCommandEvent &event) {
-    // frame.Close(true);
-    std::cout << "Reached OnNewTimer\n";
-    // this->Close(true);
-}
+// void Controller::OnNewTimer(const wxCommandEvent &event) {
+//     // frame.Close(true);
+//     std::cout << "Reached OnNewTimer\n";
+//     // this->Close(true);
+// }
 
-void Controller::OnGreeting(const wxCommandEvent &event) {
-    std::cout << "Reached OnGreeting\n";
-    wxMessageBox("hello@");
-}
+// void Controller::OnGreeting(const wxCommandEvent &event) {
+//     std::cout << "Reached OnGreeting\n";
+//     wxMessageBox("hello@");
+// }
 
-void Controller::OnFrameClose(wxCloseEvent &event) {
+// void Controller::OnFrameClose(wxCloseEvent &event) {
+//     // Get the current position and size of the window.
+//     wxPoint pos = frame->GetPosition();
+//     wxSize size = frame->GetSize();
+
+//     preferences.setFramePosition(pos.x, pos.y);
+//     preferences.setFrameDimensions(size.GetWidth(), size.GetHeight());
+
+//     // This call is crucial to let the window close.
+//     // Without it, the window would remain open.
+//     event.Skip();
+// }
+
+void Controller::Quit() { std::cout << "Reached OnQuit\n"; };
+
+void Controller::AddTimer() { std::cout << "Reached OnAddTimer\n"; };
+void Controller::CleanUp() {
+    std::cout << "Reached OnCleanUp\n";
     // Get the current position and size of the window.
     wxPoint pos = frame->GetPosition();
     wxSize size = frame->GetSize();
 
     preferences.setFramePosition(pos.x, pos.y);
     preferences.setFrameDimensions(size.GetWidth(), size.GetHeight());
-
-    // This call is crucial to let the window close.
-    // Without it, the window would remain open.
-    event.Skip();
-}
+};

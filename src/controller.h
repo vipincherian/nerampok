@@ -10,9 +10,10 @@
 #include <iostream>
 
 #include "frame.h"
+#include "icontroller.h"
 #include "preferences.h"
 
-class Controller : wxEvtHandler {
+class Controller : IController {
    private:
     TopFrame *frame;
     Preferences preferences;
@@ -21,11 +22,13 @@ class Controller : wxEvtHandler {
    public:
     Controller();   // Constructor declaration
     ~Controller();  // Destructor declaration
-    void OnGreeting(const wxCommandEvent &event);
-    void OnExit(const wxCommandEvent &event);
-    void OnNewTimer(const wxCommandEvent &event);
-    void OnFrameClose(wxCloseEvent &event);
-
+    // void OnGreeting(const wxCommandEvent &event);
+    // void OnExit(const wxCommandEvent &event);
+    // void OnNewTimer(const wxCommandEvent &event);
+    // void OnFrameClose(wxCloseEvent &event);
+    void Quit();
+    void AddTimer();
+    void CleanUp();
     // void run();  // Example method declaration
 };
 
