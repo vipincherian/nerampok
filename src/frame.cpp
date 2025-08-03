@@ -5,8 +5,8 @@ enum { ID_NewTimer = 1 };
 
 wxDEFINE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
 
-MyFrame::MyFrame(wxEvtHandler *controller)
-    : wxFrame(NULL, wxID_ANY, APP_TITLE) {
+TopFrame::TopFrame(wxEvtHandler *controller)
+    : wxFrame(NULL, wxID_ANY, Constants::getInstance().getAppTitle()) {
     parentController = controller;
     wxMenu *menuTimer = new wxMenu;
     menuTimer->Append(ID_NewTimer, "&New\tCtrl-N", "Create a new timer");
@@ -51,13 +51,13 @@ MyFrame::MyFrame(wxEvtHandler *controller)
     CreateStatusBar();
     SetStatusText("Welcome to wxWidgets!");
 
-    Bind(wxEVT_MENU, &MyFrame::OnNewTimer, this, ID_NewTimer);
-    Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
+    Bind(wxEVT_MENU, &TopFrame::OnNewTimer, this, ID_NewTimer);
+    Bind(wxEVT_MENU, &TopFrame::OnAbout, this, wxID_ABOUT);
     // Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
-    button->Bind(wxEVT_BUTTON, &MyFrame::OnButtonClick, this);
+    button->Bind(wxEVT_BUTTON, &TopFrame::OnButtonClick, this);
 }
 
-void MyFrame::OnExit(const wxCommandEvent &event) {
+void TopFrame::OnExit(const wxCommandEvent &event) {
     std::cout << "On MyFrame:;OnExit";
     Close(true);
     // wxMessageBox("hello");
@@ -69,22 +69,21 @@ void MyFrame::OnExit(const wxCommandEvent &event) {
     // }
 }
 
-void MyFrame::OnAbout(const wxCommandEvent &event) {
+void TopFrame::OnAbout(const wxCommandEvent &event) {
     wxMessageBox("This is a wxWidgets Hello World example", "About Hello World",
                  wxOK | wxICON_INFORMATION);
 }
 
-void MyFrame::OnNewTimer(const wxCommandEvent &event) {
+void TopFrame::OnNewTimer(const wxCommandEvent &event) {
     // double scaleFactor = wxWindow::GetDPIScaleFactor();
     const wxSize sizeM = this->GetTextExtent("M");
     wxString message = wxString::Format("Scaling facator is %d", sizeM.y);
     wxMessageBox(message);
-    if (parentController != NULL) {
-        wxCommandEvent customEvent(FRAME_GREET_EVENT);
-        customEvent.SetString("Custom event string");
-        // Post the custom event to the panel (send a message to it)
-        wxPostEvent(parentController, customEvent);
-    }
+    wxASSERT(parentController != NULL);
+    wxCommandEvent customEvent(FRAME_GREET_EVENT);
+    customEvent.SetString("Custom event string");
+    // Post the custom event to the panel (send a message to it)
+    wxPostEvent(parentController, customEvent);
 }
 
 // void MyFrame::SetController(wxEvtHandler *controller) {
@@ -92,7 +91,7 @@ void MyFrame::OnNewTimer(const wxCommandEvent &event) {
 //     // this->PushEventHandler(parentController);
 // }
 
-void MyFrame::OnButtonClick(const wxCommandEvent &event) {
+void TopFrame::OnButtonClick(const wxCommandEvent &event) {
     std::cout << "On MyFrame::OnButtonClick";
     if (parentController != NULL) {
         wxCommandEvent customEvent(FRAME_GREET_EVENT);

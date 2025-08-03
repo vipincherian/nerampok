@@ -13,7 +13,7 @@
 
 class Controller : wxEvtHandler {
    private:
-    MyFrame *frame;
+    TopFrame *frame;
     // wxFrame *frame;
 
    public:
@@ -21,6 +21,7 @@ class Controller : wxEvtHandler {
     ~Controller();  // Destructor declaration
     void OnGreeting(const wxCommandEvent &event);
     void OnExit(const wxCommandEvent &event);
+    void OnNewTimer(const wxCommandEvent &event);
 
     // void run();  // Example method declaration
 };

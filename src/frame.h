@@ -10,9 +10,9 @@
 
 wxDECLARE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
 
-class MyFrame : public wxFrame {
+class TopFrame : public wxFrame {
    public:
-    explicit MyFrame(wxEvtHandler *controller);
+    explicit TopFrame(wxEvtHandler *controller);
     // void SetController(wxEvtHandler *controller);
 
    private:

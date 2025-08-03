@@ -18,6 +18,7 @@ set(SOURCES
     main.cpp
     controller.cpp
     frame.cpp
+    constants.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
