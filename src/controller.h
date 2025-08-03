@@ -24,6 +24,7 @@ class Controller : wxEvtHandler {
     void OnGreeting(const wxCommandEvent &event);
     void OnExit(const wxCommandEvent &event);
     void OnNewTimer(const wxCommandEvent &event);
+    void OnFrameClose(wxCloseEvent &event);
 
     // void run();  // Example method declaration
 };

@@ -1,5 +1,7 @@
 #include "controller.h"
 
+#include "preferencesreader.h"
+
 enum { ID_NewTimer = 1 };
 
 // #include "frame.h"
@@ -10,6 +12,8 @@ Controller::Controller() : wxEvtHandler() {
     // Load preferences
     // wxStandardPa
     preferences.Load();
+    PreferencesReader::getInstance().SetPreferences(&preferences);
+
     // Initialization logic here
     // frame = new MyFrame();
     // frame->Show(true);
@@ -20,6 +24,7 @@ Controller::Controller() : wxEvtHandler() {
     // frame->Bind(wxEVT_MENU, &Controller::OnGreeting, this, ID_Hello);
     frame->Bind(wxEVT_MENU, &Controller::OnExit, this, wxID_EXIT);
     frame->Bind(wxEVT_MENU, &Controller::OnNewTimer, this, ID_NewTimer);
+    frame->Bind(wxEVT_CLOSE_WINDOW, &Controller::OnFrameClose, this);
     this->Bind(FRAME_GREET_EVENT, &Controller::OnGreeting, this);
 }
 
@@ -47,4 +52,17 @@ void Controller::OnNewTimer(const wxCommandEvent &event) {
 void Controller::OnGreeting(const wxCommandEvent &event) {
     std::cout << "Reached OnGreeting\n";
     wxMessageBox("hello@");
+}
+
+void Controller::OnFrameClose(wxCloseEvent &event) {
+    // Get the current position and size of the window.
+    wxPoint pos = frame->GetPosition();
+    wxSize size = frame->GetSize();
+
+    preferences.setFramePosition(pos.x, pos.y);
+    preferences.setFrameDimensions(size.GetWidth(), size.GetHeight());
+
+    // This call is crucial to let the window close.
+    // Without it, the window would remain open.
+    event.Skip();
 }

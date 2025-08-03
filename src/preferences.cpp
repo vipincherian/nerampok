@@ -14,10 +14,10 @@ Preferences::Preferences()
     : m_username("DefaultUser"),
       m_volume(50),
       m_darkModeEnabled(false),
-      m_windowX(-1),  // Use -1 to indicate position is not set
-      m_windowY(-1),
-      m_windowWidth(800),
-      m_windowHeight(600) {
+      framePositionX(-1),  // Use -1 to indicate position is not set
+      framePositionY(-1),
+      frameWidth(800),
+      frameHeight(600) {
     wxStandardPaths::Get().SetFileLayout(wxStandardPaths::FileLayout_XDG);
 
     // Get the full path to the user's config directory.
@@ -71,22 +71,22 @@ bool Preferences::Load(const wxString& filename) {
         } else if (node->GetName() == "WindowX") {
             long x;
             if (node->GetNodeContent().ToLong(&x)) {
-                m_windowX = static_cast<int>(x);
+                framePositionX = static_cast<int>(x);
             }
         } else if (node->GetName() == "WindowY") {
             long y;
             if (node->GetNodeContent().ToLong(&y)) {
-                m_windowY = static_cast<int>(y);
+                framePositionY = static_cast<int>(y);
             }
         } else if (node->GetName() == "WindowWidth") {
             long width;
             if (node->GetNodeContent().ToLong(&width)) {
-                m_windowWidth = static_cast<int>(width);
+                frameWidth = static_cast<int>(width);
             }
         } else if (node->GetName() == "WindowHeight") {
             long height;
             if (node->GetNodeContent().ToLong(&height)) {
-                m_windowHeight = static_cast<int>(height);
+                frameHeight = static_cast<int>(height);
             }
         }
         node = node->GetNext();
@@ -136,21 +136,21 @@ bool Preferences::Save(const wxString& filename) {
 
     wxXmlNode* windowXNode = new wxXmlNode(root, wxXML_ELEMENT_NODE, "WindowX");
     new wxXmlNode(windowXNode, wxXML_TEXT_NODE, "",
-                  wxString::Format("%d", m_windowX));
+                  wxString::Format("%d", framePositionX));
 
     wxXmlNode* windowYNode = new wxXmlNode(root, wxXML_ELEMENT_NODE, "WindowY");
     new wxXmlNode(windowYNode, wxXML_TEXT_NODE, "",
-                  wxString::Format("%d", m_windowY));
+                  wxString::Format("%d", framePositionY));
 
     wxXmlNode* windowWidthNode =
         new wxXmlNode(root, wxXML_ELEMENT_NODE, "WindowWidth");
     new wxXmlNode(windowWidthNode, wxXML_TEXT_NODE, "",
-                  wxString::Format("%d", m_windowWidth));
+                  wxString::Format("%d", frameWidth));
 
     wxXmlNode* windowHeightNode =
         new wxXmlNode(root, wxXML_ELEMENT_NODE, "WindowHeight");
     new wxXmlNode(windowHeightNode, wxXML_TEXT_NODE, "",
-                  wxString::Format("%d", m_windowHeight));
+                  wxString::Format("%d", frameHeight));
 
     // Save the XML document to the file.
     if (!doc.Save(configFilePath.GetFullPath())) {
@@ -171,10 +171,25 @@ int Preferences::getVolume() const { return m_volume; }
 bool Preferences::isDarkModeEnabled() const { return m_darkModeEnabled; }
 
 // New getter methods.
-int Preferences::getWindowX() const { return m_windowX; }
+int Preferences::getFramePositionX() const { return framePositionX; }
 
-int Preferences::getWindowY() const { return m_windowY; }
+int Preferences::getFramePositionY() const { return framePositionY; }
 
-int Preferences::getWindowWidth() const { return m_windowWidth; }
+int Preferences::getFrameWidth() const { return frameWidth; }
 
-int Preferences::getWindowHeight() const { return m_windowHeight; }
+int Preferences::getFrameHeight() const { return frameHeight; }
+
+void Preferences::setFramePosition(int x, int y) {
+    wxASSERT(x >= 0);
+    wxASSERT(y >= 0);
+    // TODO: Handle multi-monitor scenario - save display too?
+    framePositionX = x;
+    framePositionY = y;
+}
+
+void Preferences::setFrameDimensions(int w, int h) {
+    wxASSERT(w > 0);
+    wxASSERT(h > 0);
+    frameWidth = w;
+    frameHeight = h;
+}

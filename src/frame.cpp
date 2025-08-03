@@ -1,6 +1,7 @@
 #include "frame.h"
 
 #include "constants.h"
+#include "preferencesreader.h"
 enum { ID_NewTimer = 1 };
 
 wxDEFINE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
@@ -55,6 +56,13 @@ TopFrame::TopFrame(wxEvtHandler *controller)
     Bind(wxEVT_MENU, &TopFrame::OnAbout, this, wxID_ABOUT);
     // Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
     button->Bind(wxEVT_BUTTON, &TopFrame::OnButtonClick, this);
+
+    // Restore saved position and dimensions
+
+    SetPosition(wxPoint(PreferencesReader::getInstance().getFramePositionX(),
+                        PreferencesReader::getInstance().getFramePositionY()));
+    SetSize(wxSize(PreferencesReader::getInstance().getFrameWidth(),
+                   PreferencesReader::getInstance().getFrameHeight()));
 }
 
 void TopFrame::OnExit(const wxCommandEvent &event) {

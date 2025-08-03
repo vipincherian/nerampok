@@ -3,6 +3,7 @@
 
 #include <memory>
 
+// #include "ipreferencesreader.h"
 #include "preferences.h"
 
 /**
@@ -20,7 +21,7 @@ class PreferencesReader {
 
     // Method to load preferences. It calls the Preferences object's load
     // method.
-    bool Load(const wxString& filename = "preferences.xml");
+    // bool Load(const wxString& filename = "preferences.xml");
 
     // Method to check if preferences have been loaded.
     bool isLoaded() const;
@@ -31,13 +32,16 @@ class PreferencesReader {
     bool isDarkModeEnabled() const;
 
     // New getters for window position and size.
-    int getWindowX() const;
-    int getWindowY() const;
-    int getWindowWidth() const;
-    int getWindowHeight() const;
+    int getFramePositionX() const;
+    int getFramePositionY() const;
+    int getFrameWidth() const;
+    int getFrameHeight() const;
+
+    void SetPreferences(Preferences* prefs);
 
    private:
     // Private constructor to prevent direct instantiation.
+    Preferences* preferences = nullptr;
     PreferencesReader();
 
     // Prevent copying and assignment.

@@ -3,7 +3,7 @@ project(nerampok)
 
 # set(wxWidgets_ROOT_DIR "/media/data/dev/lib/cpp/wx/3.3.1/")
 # set(wxWidgets_LIB_DIR "/media/data/dev/lib/cpp/wx/3.3.1/buildgtk/lib/")
-set(wxWidgets_CONFIG_EXECUTABLE "/media/data/dev/lib/cpp/wx/3.3.1/buildgtk/wx-config")
+# set(wxWidgets_CONFIG_EXECUTABLE "/media/data/dev/lib/cpp/wx/3.3.1/buildgtk/wx-config")
 # set(wxWidgets_CONFIG_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../lib/cpp/wx/1.3.1/buildgtk/wx-config")
 
 # message(PROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}")

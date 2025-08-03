@@ -28,10 +28,13 @@ class Preferences {
     bool isDarkModeEnabled() const;
 
     // New getters for window position and size.
-    int getWindowX() const;
-    int getWindowY() const;
-    int getWindowWidth() const;
-    int getWindowHeight() const;
+    int getFramePositionX() const;
+    int getFramePositionY() const;
+    int getFrameWidth() const;
+    int getFrameHeight() const;
+
+    void setFramePosition(int x, int y);
+    void setFrameDimensions(int w, int h);
 
    private:
     wxFileName configFilePath;
@@ -42,10 +45,10 @@ class Preferences {
     bool m_darkModeEnabled;
 
     // New member variables for window geometry.
-    int m_windowX;
-    int m_windowY;
-    int m_windowWidth;
-    int m_windowHeight;
+    int framePositionX;
+    int framePositionY;
+    int frameWidth;
+    int frameHeight;
 };
 
 #endif  // PREFERENCES_H
