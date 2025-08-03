@@ -16,9 +16,11 @@ class TopFrame : public wxFrame {
    public:
     explicit TopFrame(IController *controller);
     // void SetController(wxEvtHandler *controller);
+    wxPanel *getContainer();
 
    private:
     IController *parentController = NULL;
+    wxPanel *containerPanel = nullptr;
     // wxPanel *containerPanel;
     void OnNewTimer(const wxCommandEvent &event);
     void OnExit(const wxCommandEvent &event);

@@ -1,7 +1,14 @@
 #ifndef CLOCK_CONTROLLER_H
 #define CLOCK_CONTROLLER_H
 
+#include <wx/wxprec.h>
+
+#ifndef WX_PRECOMP
 #include <wx/wx.h>
+#endif
+
+#include "clockpanel.h"
+#include "iclockcontroller.h"
 
 // Forward declaration of the IClockMediator interface.
 // We assume this interface is defined in a separate header.
@@ -17,11 +24,11 @@ class IClockMediator;
  * and assignment operator are all explicitly deleted to enforce the
  * intended usage.
  */
-class ClockController {
+class ClockController : IClockController {
    public:
     // Main constructor that takes a reference to the IClockMediator interface.
     // This is the only way to create an instance of this class.
-    ClockController(IClockMediator& mediator);
+    explicit ClockController(IClockMediator* mediator, wxPanel* container);
 
     // Explicitly delete the default constructor to prevent instantiation
     // without a mediator.
@@ -29,13 +36,15 @@ class ClockController {
 
     // Explicitly delete the copy constructor and copy assignment operator
     // to prevent cloning.
-    ClockController(const ClockController&) = delete;
-    ClockController& operator=(const ClockController&) = delete;
+    ClockController(const ClockController*) = delete;
+    ClockController& operator=(const ClockController*) = delete;
 
    private:
     // A reference to the mediator, which allows the controller to
     // interact with other parts of the application.
-    IClockMediator& m_mediator;
+    IClockMediator* clockMediator = nullptr;
+    wxPanel* container = nullptr;
+    ClockPanel* clockPanel = nullptr;
 };
 
 #endif  // CLOCK_CONTROLLER_H

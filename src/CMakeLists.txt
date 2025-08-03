@@ -23,6 +23,7 @@ set(SOURCES
     preferencesreader.cpp
     utils.cpp
     clockcontroller.cpp
+    clockpanel.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

@@ -46,8 +46,8 @@ TopFrame::TopFrame(IController *controller)
     wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
 
     // Create a panel inside the frame which will
-    wxPanel *containerPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition,
-                                          wxSize(350, 200), wxBORDER_SUNKEN);
+    containerPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition,
+                                 wxSize(350, 200), wxBORDER_SUNKEN);
     // Set a sunken border for the panel
     containerPanel->SetWindowStyle(wxSUNKEN_BORDER);
 
@@ -166,4 +166,8 @@ void TopFrame::OnShow(wxShowEvent &event) {
                    PreferencesReader::getInstance().getFrameHeight()));
     // Always skip the event to allow default processing to continue.
     event.Skip();
+}
+wxPanel *TopFrame::getContainer() {
+    wxASSERT(containerPanel != nullptr);
+    return containerPanel;
 }
