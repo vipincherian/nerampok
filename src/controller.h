@@ -10,13 +10,15 @@
 #include <iostream>
 
 #include "frame.h"
+#include "iclockmediator.h"
 #include "icontroller.h"
 #include "preferences.h"
 
-class Controller : IController {
+class Controller : IController, IClockMediator {
    private:
     TopFrame *frame;
     Preferences preferences;
+    unsigned long long usedCockIds = 0;
     // wxFrame *frame;
 
    public:
@@ -27,8 +29,10 @@ class Controller : IController {
     // void OnNewTimer(const wxCommandEvent &event);
     // void OnFrameClose(wxCloseEvent &event);
     void Quit();
-    void AddTimer();
+    void AddClock();
     void CleanUp();
+    void ReportClock();
+    int getSmallestAvailableCockId();
     // void run();  // Example method declaration
 };
 

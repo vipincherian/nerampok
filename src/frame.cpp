@@ -133,7 +133,7 @@ void TopFrame::OnNewTimer(const wxCommandEvent &event) {
     // customEvent.SetString("Custom event string");
     // // Post the custom event to the panel (send a message to it)
     // wxPostEvent(parentController, customEvent);
-    parentController->AddTimer();
+    parentController->AddClock();
 }
 
 // void MyFrame::SetController(wxEvtHandler *controller) {

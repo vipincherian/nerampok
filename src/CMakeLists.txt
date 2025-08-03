@@ -21,6 +21,7 @@ set(SOURCES
     constants.cpp
     preferences.cpp
     preferencesreader.cpp
+    utils.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

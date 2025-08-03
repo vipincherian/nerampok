@@ -8,7 +8,7 @@ class IController {
 
     // Pure virtual methods
     virtual void Quit() = 0;
-    virtual void AddTimer() = 0;
+    virtual void AddClock() = 0;
     virtual void CleanUp() = 0;
 };
 

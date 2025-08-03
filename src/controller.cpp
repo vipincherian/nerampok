@@ -1,12 +1,13 @@
 #include "controller.h"
 
 #include "preferencesreader.h"
+#include "utils.h"
 
 // enum { ID_NewTimer = 1 };
 
 // #include "frame.h"
 
-Controller::Controller() : IController() {
+Controller::Controller() : IController(), IClockMediator() {
     std::cout << "Controller constructed\n";
 
     // Load preferences
@@ -69,7 +70,13 @@ Controller::~Controller() {
 
 void Controller::Quit() { std::cout << "Reached OnQuit\n"; };
 
-void Controller::AddTimer() { std::cout << "Reached OnAddTimer\n"; };
+void Controller::AddClock() {
+    std::cout << "Reached OnAddTimer\n";
+    // std::cout << "Rightmost bit set for 3 is" << util::rightmostZeroIndex(3)
+    //           << "\n";
+    // std::cout << "Rightmost bit set for 4 is" << util::rightmostZeroIndex(4)
+    //           << "\n";
+};
 void Controller::CleanUp() {
     std::cout << "Reached OnCleanUp\n";
     // Get the current position and size of the window.
@@ -79,3 +86,7 @@ void Controller::CleanUp() {
     preferences.setFramePosition(pos.x, pos.y);
     preferences.setFrameDimensions(size.GetWidth(), size.GetHeight());
 };
+void Controller::ReportClock() {}
+int Controller::getSmallestAvailableCockId() {
+    return util::rightmostZeroIndex(usedCockIds);
+}
