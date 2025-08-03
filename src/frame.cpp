@@ -1,16 +1,20 @@
 #include "frame.h"
 
+#include <wx/artprov.h>
+
 #include "constants.h"
 #include "preferencesreader.h"
-enum { ID_NewTimer = 1 };
+// enum { ID_NewTimer = 1 };
 
 wxDEFINE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
 
 TopFrame::TopFrame(wxEvtHandler *controller)
     : wxFrame(NULL, wxID_ANY, Constants::getInstance().getAppTitle()) {
     parentController = controller;
+
+    // Creation of the main menu
     wxMenu *menuTimer = new wxMenu;
-    menuTimer->Append(ID_NewTimer, "&New\tCtrl-N", "Create a new timer");
+    menuTimer->Append(wxID_NEW, "&New\tCtrl-N", "Create a new timer");
     menuTimer->AppendSeparator();
     menuTimer->Append(wxID_EXIT);
 
@@ -22,6 +26,20 @@ TopFrame::TopFrame(wxEvtHandler *controller)
     menuBar->Append(menuHelp, "&Help");
 
     SetMenuBar(menuBar);
+
+    // Creation of the toolbar
+
+    wxToolBar *toolbar = CreateToolBar();
+
+    // 2. Add tools to the toolbar. Each tool needs an ID and a label.
+    // wxART_FILE_OPEN and wxART_FILE_SAVE are standard stock icons.
+    toolbar->AddTool(wxID_NEW, "Open",
+                     wxArtProvider::GetBitmap(wxART_FILE_OPEN, wxART_TOOLBAR));
+    toolbar->AddTool(wxID_SAVE, "Save",
+                     wxArtProvider::GetBitmap(wxART_FILE_SAVE, wxART_TOOLBAR));
+
+    // 3. Realize the toolbar to make it visible.
+    toolbar->Realize();
 
     wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
 
@@ -52,7 +70,7 @@ TopFrame::TopFrame(wxEvtHandler *controller)
     CreateStatusBar();
     SetStatusText("Welcome to wxWidgets!");
 
-    Bind(wxEVT_MENU, &TopFrame::OnNewTimer, this, ID_NewTimer);
+    Bind(wxEVT_MENU, &TopFrame::OnNewTimer, this, wxID_NEW);
     Bind(wxEVT_MENU, &TopFrame::OnAbout, this, wxID_ABOUT);
     // Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
     button->Bind(wxEVT_BUTTON, &TopFrame::OnButtonClick, this);

@@ -2,7 +2,7 @@
 
 #include "preferencesreader.h"
 
-enum { ID_NewTimer = 1 };
+// enum { ID_NewTimer = 1 };
 
 // #include "frame.h"
 
@@ -23,7 +23,7 @@ Controller::Controller() : wxEvtHandler() {
     // frame->SetController(this);
     // frame->Bind(wxEVT_MENU, &Controller::OnGreeting, this, ID_Hello);
     frame->Bind(wxEVT_MENU, &Controller::OnExit, this, wxID_EXIT);
-    frame->Bind(wxEVT_MENU, &Controller::OnNewTimer, this, ID_NewTimer);
+    frame->Bind(wxEVT_MENU, &Controller::OnNewTimer, this, wxID_NEW);
     frame->Bind(wxEVT_CLOSE_WINDOW, &Controller::OnFrameClose, this);
     this->Bind(FRAME_GREET_EVENT, &Controller::OnGreeting, this);
 }

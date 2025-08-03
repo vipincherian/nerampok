@@ -24,12 +24,12 @@ class PreferencesReader {
     // bool Load(const wxString& filename = "preferences.xml");
 
     // Method to check if preferences have been loaded.
-    bool isLoaded() const;
+    // bool isLoaded() const;
 
     // Getter methods that provide read-only access to the preference values.
-    wxString getUsername() const;
-    int getVolume() const;
-    bool isDarkModeEnabled() const;
+    // wxString getUsername() const;
+    // int getVolume() const;
+    // bool isDarkModeEnabled() const;
 
     // New getters for window position and size.
     int getFramePositionX() const;
@@ -42,6 +42,7 @@ class PreferencesReader {
    private:
     // Private constructor to prevent direct instantiation.
     Preferences* preferences = nullptr;
+    // std::unique_ptr<Preferences> preferences = nullptr;
     PreferencesReader();
 
     // Prevent copying and assignment.
@@ -50,10 +51,10 @@ class PreferencesReader {
 
     // A pointer to the Preferences data object. The singleton is responsible
     // for its lifetime.
-    std::unique_ptr<Preferences> m_preferences;
+    // std::unique_ptr<Preferences> m_preferences;
 
     // Flag to track if the preferences have been successfully loaded.
-    bool m_isLoaded;
+    // bool m_isLoaded;
 };
 
 #endif  // PREFERENCES_READER_H

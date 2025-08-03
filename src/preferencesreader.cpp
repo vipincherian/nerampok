@@ -12,8 +12,7 @@ PreferencesReader& PreferencesReader::getInstance() {
 }
 
 // Private constructor: The single Preferences object is created here.
-PreferencesReader::PreferencesReader()
-    : m_preferences(std::make_unique<Preferences>()), m_isLoaded(false) {}
+PreferencesReader::PreferencesReader() {}
 
 /**
  * @brief Loads preferences from an XML file using the Preferences object.
@@ -29,32 +28,32 @@ PreferencesReader::PreferencesReader()
  * @brief Checks if the preferences have been loaded from a file.
  * @return true if loaded, false otherwise.
  */
-bool PreferencesReader::isLoaded() const { return m_isLoaded; }
+// bool PreferencesReader::isLoaded() const { return m_isLoaded; }
 
 // Getter methods that provide read-only access.
-wxString PreferencesReader::getUsername() const {
-    if (m_isLoaded) {
-        return m_preferences->getUsername();
-    }
-    // Return a default or empty string if not loaded.
-    return "";
-}
+// wxString PreferencesReader::getUsername() const {
+//     if (m_isLoaded) {
+//         return m_preferences->getUsername();
+//     }
+//     // Return a default or empty string if not loaded.
+//     return "";
+// }
 
-int PreferencesReader::getVolume() const {
-    if (m_isLoaded) {
-        return m_preferences->getVolume();
-    }
-    // Return a default value if not loaded.
-    return 50;
-}
+// int PreferencesReader::getVolume() const {
+//     if (m_isLoaded) {
+//         return m_preferences->getVolume();
+//     }
+//     // Return a default value if not loaded.
+//     return 50;
+// }
 
-bool PreferencesReader::isDarkModeEnabled() const {
-    if (m_isLoaded) {
-        return m_preferences->isDarkModeEnabled();
-    }
-    // Return a default value if not loaded.
-    return false;
-}
+// bool PreferencesReader::isDarkModeEnabled() const {
+//     if (m_isLoaded) {
+//         return m_preferences->isDarkModeEnabled();
+//     }
+//     // Return a default value if not loaded.
+//     return false;
+// }
 
 // New getter methods for window geometry.
 int PreferencesReader::getFramePositionX() const {
