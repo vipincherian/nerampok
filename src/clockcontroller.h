@@ -9,10 +9,11 @@
 
 #include "clockpanel.h"
 #include "iclockcontroller.h"
+#include "iclockmediator.h"
 
 // Forward declaration of the IClockMediator interface.
 // We assume this interface is defined in a separate header.
-class IClockMediator;
+// class IClockMediator;
 
 /**
  * @class ClockController
@@ -28,7 +29,8 @@ class ClockController : IClockController {
    public:
     // Main constructor that takes a reference to the IClockMediator interface.
     // This is the only way to create an instance of this class.
-    explicit ClockController(IClockMediator* mediator, wxPanel* container);
+    explicit ClockController(IClockMediator* mediator, wxPanel* container,
+                             int id);
 
     // Explicitly delete the default constructor to prevent instantiation
     // without a mediator.
@@ -44,6 +46,7 @@ class ClockController : IClockController {
     // interact with other parts of the application.
     IClockMediator* clockMediator = nullptr;
     wxPanel* container = nullptr;
+    int id = -1;
     ClockPanel* clockPanel = nullptr;
 };
 

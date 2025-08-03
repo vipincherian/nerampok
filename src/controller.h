@@ -8,7 +8,9 @@
 #endif
 
 #include <iostream>
+#include <map>
 
+#include "clockcontroller.h"
 #include "frame.h"
 #include "iclockmediator.h"
 #include "icontroller.h"
@@ -19,6 +21,7 @@ class Controller : IController, IClockMediator {
     TopFrame *frame;
     Preferences preferences;
     unsigned long long usedCockIds = 0;
+    std::unordered_map<int, ClockController *> clocks;
     // wxFrame *frame;
 
    public:
@@ -33,6 +36,7 @@ class Controller : IController, IClockMediator {
     void CleanUp();
     void ReportClock();
     int getSmallestAvailableCockId();
+    void AddToUsedClockIds(int idToAdd);
     // void run();  // Example method declaration
 };
 

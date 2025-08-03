@@ -1,6 +1,5 @@
 #include "controller.h"
 
-#include "clockcontroller.h"
 #include "preferencesreader.h"
 #include "utils.h"
 
@@ -77,9 +76,14 @@ void Controller::AddClock() {
     //           << "\n";
     // std::cout << "Rightmost bit set for 4 is" << util::rightmostZeroIndex(4)
     //           << "\n";
-    ClockController *cc = new ClockController(this, frame->getContainer());
-    frame->getContainer()->GetSizer()->Layout();
-    frame->GetSizer()->Layout();
+
+    int id = getSmallestAvailableCockId();
+    ClockController *cc = new ClockController(this, frame->getContainer(), id);
+    AddToUsedClockIds(id);
+    clocks[id] = cc;
+
+    // frame->getContainer()->GetSizer()->Layout();
+    // frame->GetSizer()->Layout();
 };
 void Controller::CleanUp() {
     std::cout << "Reached OnCleanUp\n";
@@ -93,4 +97,8 @@ void Controller::CleanUp() {
 void Controller::ReportClock() {}
 int Controller::getSmallestAvailableCockId() {
     return util::rightmostZeroIndex(usedCockIds);
+}
+void Controller::AddToUsedClockIds(int idToAdd) {
+    wxASSERT(idToAdd >= 0);
+    usedCockIds |= 1 << idToAdd;
 }
