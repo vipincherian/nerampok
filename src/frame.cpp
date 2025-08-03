@@ -1,22 +1,23 @@
 #include "frame.h"
-enum { ID_Hello = 1 };
+
+#include "constants.h"
+enum { ID_NewTimer = 1 };
 
 wxDEFINE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
 
-MyFrame::MyFrame(wxEvtHandler *ctrller)
-    : wxFrame(NULL, wxID_ANY, "Hello World") {
-    parentController = ctrller;
-    wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H",
-                     "Help string shown in status bar for this menu item");
-    menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT);
+MyFrame::MyFrame(wxEvtHandler *controller)
+    : wxFrame(NULL, wxID_ANY, APP_TITLE) {
+    parentController = controller;
+    wxMenu *menuTimer = new wxMenu;
+    menuTimer->Append(ID_NewTimer, "&New\tCtrl-N", "Create a new timer");
+    menuTimer->AppendSeparator();
+    menuTimer->Append(wxID_EXIT);
 
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
 
     wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append(menuFile, "&File");
+    menuBar->Append(menuTimer, "&Timer");
     menuBar->Append(menuHelp, "&Help");
 
     SetMenuBar(menuBar);
@@ -50,7 +51,7 @@ MyFrame::MyFrame(wxEvtHandler *ctrller)
     CreateStatusBar();
     SetStatusText("Welcome to wxWidgets!");
 
-    Bind(wxEVT_MENU, &MyFrame::OnHello, this, ID_Hello);
+    Bind(wxEVT_MENU, &MyFrame::OnNewTimer, this, ID_NewTimer);
     Bind(wxEVT_MENU, &MyFrame::OnAbout, this, wxID_ABOUT);
     // Bind(wxEVT_MENU, &MyFrame::OnExit, this, wxID_EXIT);
     button->Bind(wxEVT_BUTTON, &MyFrame::OnButtonClick, this);
@@ -73,7 +74,7 @@ void MyFrame::OnAbout(const wxCommandEvent &event) {
                  wxOK | wxICON_INFORMATION);
 }
 
-void MyFrame::OnHello(const wxCommandEvent &event) {
+void MyFrame::OnNewTimer(const wxCommandEvent &event) {
     // double scaleFactor = wxWindow::GetDPIScaleFactor();
     const wxSize sizeM = this->GetTextExtent("M");
     wxString message = wxString::Format("Scaling facator is %d", sizeM.y);
