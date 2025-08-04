@@ -8,6 +8,7 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     wxPanel *cellSelect = new wxPanel(this);
     wxBoxSizer *hsSelect = new wxBoxSizer(wxHORIZONTAL);
     wxCheckBox *checkboxSelect = new wxCheckBox(cellSelect, wxID_ANY, "");
+    checkboxSelect->SetMinClientSize(wxSize(100, 10));
     hsSelect->Add(checkboxSelect, 0, wxLEFT | wxEXPAND, 10);
     cellSelect->SetSizer(hsSelect);
     hsSelect->Layout();
@@ -31,6 +32,7 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     cellControls->SetSizer(hsControls);
     hsControls->Layout();
 
+    cellSelect->SetClientSize(wxSize(200, 100));
     hs->Add(cellSelect, 0, wxLEFT | wxEXPAND, 10);
     hs->Add(cellTitle, 1, wxLEFT | wxEXPAND, 10);
     hs->Add(cellControls, 0, wxLEFT | wxEXPAND, 10);

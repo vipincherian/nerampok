@@ -6,6 +6,9 @@
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
 #endif
+#include <wx/headercol.h>
+#include <wx/headerctrl.h>  // Include for wxHeaderCtrl
+
 #include <iostream>
 
 #include "icontroller.h"
@@ -21,7 +24,14 @@ class TopFrame : public wxFrame {
    private:
     IController *parentController = NULL;
     wxPanel *containerPanel = nullptr;
+
     // wxPanel *containerPanel;
+    wxHeaderCtrlSimple *header = nullptr;
+    wxHeaderColumnSimple *headerColSelect = nullptr;
+    wxHeaderColumnSimple *headerColTitle = nullptr;
+    wxHeaderColumnSimple *headerColDuration = nullptr;
+    wxHeaderColumnSimple *headerColControls = nullptr;
+
     void OnNewTimer(const wxCommandEvent &event);
     void OnExit(const wxCommandEvent &event);
     void OnAbout(const wxCommandEvent &event);

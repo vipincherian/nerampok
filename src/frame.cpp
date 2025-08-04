@@ -1,8 +1,6 @@
 #include "frame.h"
 
 #include <wx/artprov.h>
-#include <wx/headercol.h>
-#include <wx/headerctrl.h>  // Include for wxHeaderCtrl
 
 #include "constants.h"
 #include "preferencesreader.h"
@@ -62,18 +60,22 @@ TopFrame::TopFrame(IController *controller)
 
     // We cannot use wxHD_DEFAULT_STYLE here as this allows re-ordering of
     // header columns. So instead, 0x0000 is passed as STYLE.
-    wxHeaderCtrlSimple *header =
-        new wxHeaderCtrlSimple(containerPanel, wxID_ANY, wxDefaultPosition,
-                               wxDefaultSize, 0x0000);  // wxHD_DEFAULT_STYLE);
-    // Append exactly three columns
-    wxHeaderColumnSimple headerColSelect("", 100, wxALIGN_CENTER);
-    wxHeaderColumnSimple headerColTitle("Title", 100, wxALIGN_CENTER);
-    wxHeaderColumnSimple headerColDuration("Duration", 150, wxALIGN_CENTER);
-    wxHeaderColumnSimple headerColControls("Controls", 200, wxALIGN_CENTER);
-    header->AppendColumn(headerColSelect);
-    header->AppendColumn(headerColTitle);
-    header->AppendColumn(headerColDuration);
-    header->AppendColumn(headerColControls);
+    header = new wxHeaderCtrlSimple(containerPanel, wxID_ANY, wxDefaultPosition,
+                                    wxDefaultSize,
+                                    0x0000);  // wxHD_DEFAULT_STYLE);
+    // While creating columns, argument _flags_ is passed as 0x0000 in order
+    // to disable resizing
+    headerColSelect = new wxHeaderColumnSimple("", 100, wxALIGN_CENTER, 0x0000);
+    headerColTitle =
+        new wxHeaderColumnSimple("Title", 100, wxALIGN_CENTER, 0x0000);
+    headerColDuration =
+        new wxHeaderColumnSimple("Duration", 150, wxALIGN_CENTER, 0x0000);
+    headerColControls =
+        new wxHeaderColumnSimple("Controls", 200, wxALIGN_CENTER, 0x0000);
+    header->AppendColumn(*headerColSelect);
+    header->AppendColumn(*headerColTitle);
+    header->AppendColumn(*headerColDuration);
+    header->AppendColumn(*headerColControls);
 
     // 2. Main vertical sizer
     wxBoxSizer *vsizer = new wxBoxSizer(wxVERTICAL);
