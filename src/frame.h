@@ -11,6 +11,7 @@
 
 #include <iostream>
 
+#include "containerpanel.h"
 #include "icontroller.h"
 
 wxDECLARE_EVENT(FRAME_GREET_EVENT, wxCommandEvent);
@@ -19,18 +20,20 @@ class TopFrame : public wxFrame {
    public:
     explicit TopFrame(IController *controller);
     // void SetController(wxEvtHandler *controller);
-    wxPanel *getContainer();
+    ContainerPanel *getContainer();
+    void AddContainer(ContainerPanel *container);
 
    private:
     IController *parentController = NULL;
-    wxPanel *containerPanel = nullptr;
+    ContainerPanel *containerPanel = nullptr;
+    wxBoxSizer *sizer = nullptr;
 
     // wxPanel *containerPanel;
-    wxHeaderCtrlSimple *header = nullptr;
-    wxHeaderColumnSimple *headerColSelect = nullptr;
-    wxHeaderColumnSimple *headerColTitle = nullptr;
-    wxHeaderColumnSimple *headerColDuration = nullptr;
-    wxHeaderColumnSimple *headerColControls = nullptr;
+    // wxHeaderCtrlSimple *header = nullptr;
+    // wxHeaderColumnSimple *headerColSelect = nullptr;
+    // wxHeaderColumnSimple *headerColTitle = nullptr;
+    // wxHeaderColumnSimple *headerColDuration = nullptr;
+    // wxHeaderColumnSimple *headerColControls = nullptr;
 
     void OnNewTimer(const wxCommandEvent &event);
     void OnExit(const wxCommandEvent &event);

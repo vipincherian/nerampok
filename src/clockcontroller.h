@@ -8,6 +8,7 @@
 #endif
 
 #include "clockpanel.h"
+#include "containerpanel.h"
 #include "iclockcontroller.h"
 #include "iclockmediator.h"
 
@@ -29,8 +30,8 @@ class ClockController : IClockController {
    public:
     // Main constructor that takes a reference to the IClockMediator interface.
     // This is the only way to create an instance of this class.
-    explicit ClockController(IClockMediator* mediator, wxPanel* container,
-                             int id);
+    explicit ClockController(IClockMediator* mediator,
+                             ContainerPanel* container, int id);
 
     // Explicitly delete the default constructor to prevent instantiation
     // without a mediator.
@@ -45,7 +46,7 @@ class ClockController : IClockController {
     // A reference to the mediator, which allows the controller to
     // interact with other parts of the application.
     IClockMediator* clockMediator = nullptr;
-    wxPanel* container = nullptr;
+    ContainerPanel* container = nullptr;
     int id = -1;
     ClockPanel* clockPanel = nullptr;
 };

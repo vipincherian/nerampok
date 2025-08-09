@@ -19,7 +19,7 @@ class ClockPanel : public wxPanel {
    private:
     IClockController *parentController = NULL;
     // wxPanel *containerPanel;
-    void Chumma();
+    // void Chumma();
 };
 
 #endif

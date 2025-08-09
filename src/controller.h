@@ -11,6 +11,7 @@
 #include <map>
 
 #include "clockcontroller.h"
+#include "containerpanel.h"
 #include "frame.h"
 #include "iclockmediator.h"
 #include "icontroller.h"
@@ -18,7 +19,8 @@
 
 class Controller : IController, IClockMediator {
    private:
-    TopFrame *frame;
+    TopFrame *frame = nullptr;
+    ContainerPanel *container = nullptr;
     Preferences preferences;
     unsigned long long usedClockIds = 0;
     std::unordered_map<int, ClockController *> clocks;

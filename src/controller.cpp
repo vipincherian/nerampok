@@ -20,6 +20,8 @@ Controller::Controller() : IController(), IClockMediator() {
     // frame->Show(true);
     // frame.SetController(this);
     frame = new TopFrame(this);
+    container = new ContainerPanel(this, frame);
+    frame->AddContainer(container);
     frame->Show(true);
     // frame->SetController(this);
     // frame->Bind(wxEVT_MENU, &Controller::OnGreeting, this, ID_Hello);

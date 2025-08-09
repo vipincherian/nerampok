@@ -41,18 +41,18 @@ TopFrame::TopFrame(IController *controller)
     // 3. Realize the toolbar to make it visible.
     toolbar->Realize();
 
-    wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
+    sizer = new wxBoxSizer(wxVERTICAL);
 
     // Create a panel inside the frame which will
-    containerPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition,
-                                 wxSize(350, 200), wxBORDER_SUNKEN);
+    // containerPanel = new wxPanel(this, wxID_ANY, wxDefaultPosition,
+    //  wxSize(350, 200), wxBORDER_SUNKEN);
     // Set a sunken border for the panel
-    containerPanel->SetWindowStyle(wxSUNKEN_BORDER);
+    // containerPanel->SetWindowStyle(wxSUNKEN_BORDER);
 
     // Add the panel to the sizer, making it expand and fill available space
     // wxEXPAND ensures it takes up available width/height
     // wxALL and 10 add a 10-pixel border around the panel within the sizer
-    vbox->Add(containerPanel, 1, wxEXPAND | wxALL, 10);
+    // vbox->Add(containerPanel, 1, wxEXPAND | wxALL, 10);
 
     //
     // Container panel
@@ -60,27 +60,26 @@ TopFrame::TopFrame(IController *controller)
 
     // We cannot use wxHD_DEFAULT_STYLE here as this allows re-ordering of
     // header columns. So instead, 0x0000 is passed as STYLE.
-    header = new wxHeaderCtrlSimple(containerPanel, wxID_ANY, wxDefaultPosition,
-                                    wxDefaultSize,
-                                    0x0000);  // wxHD_DEFAULT_STYLE);
+    // header = new wxHeaderCtrlSimple(containerPanel, wxID_ANY,
+    // wxDefaultPosition, wxDefaultSize, 0x0000);  // wxHD_DEFAULT_STYLE);
     // While creating columns, argument _flags_ is passed as 0x0000 in order
     // to disable resizing
-    headerColSelect = new wxHeaderColumnSimple("", 100, wxALIGN_CENTER, 0x0000);
-    headerColTitle =
-        new wxHeaderColumnSimple("Title", 100, wxALIGN_CENTER, 0x0000);
-    headerColDuration =
-        new wxHeaderColumnSimple("Duration", 150, wxALIGN_CENTER, 0x0000);
-    headerColControls =
-        new wxHeaderColumnSimple("Controls", 200, wxALIGN_CENTER, 0x0000);
-    header->AppendColumn(*headerColSelect);
-    header->AppendColumn(*headerColTitle);
-    header->AppendColumn(*headerColDuration);
-    header->AppendColumn(*headerColControls);
+    // headerColSelect = new wxHeaderColumnSimple("", 100, wxALIGN_CENTER,
+    // 0x0000); headerColTitle = new wxHeaderColumnSimple("Title", 100,
+    // wxALIGN_CENTER, 0x0000);
+    // headerColDuration =
+    //     new wxHeaderColumnSimple("Duration", 150, wxALIGN_CENTER, 0x0000);
+    // headerColControls =
+    //     new wxHeaderColumnSimple("Controls", 200, wxALIGN_CENTER, 0x0000);
+    // header->AppendColumn(*headerColSelect);
+    // header->AppendColumn(*headerColTitle);
+    // header->AppendColumn(*headerColDuration);
+    // header->AppendColumn(*headerColControls);
 
     // 2. Main vertical sizer
-    wxBoxSizer *vsizer = new wxBoxSizer(wxVERTICAL);
-    vsizer->Add(header, 0, wxEXPAND);
-    containerPanel->SetSizer(vsizer);
+    // wxBoxSizer *vsizer = new wxBoxSizer(wxVERTICAL);
+    // vsizer->Add(header, 0, wxEXPAND);
+    // containerPanel->SetSizer(vsizer);
 
     //
     // Container panel end
@@ -91,13 +90,13 @@ TopFrame::TopFrame(IController *controller)
                                     wxDefaultPosition, wxSize(100, 30));
 
     // Add the button to the vertical sizer
-    vbox->Add(button, 0, wxALL | wxCENTER, 10);
+    sizer->Add(button, 0, wxALL | wxCENTER, 10);
 
     // Set the sizer for the frame
-    SetSizer(vbox);
+    SetSizer(sizer);
 
     // Fit the frame to the sizer's minimum size
-    vbox->Fit(this);
+    sizer->Fit(this);
 
     CreateStatusBar();
     SetStatusText("Welcome to wxWidgets!");
@@ -171,7 +170,16 @@ void TopFrame::OnShow(wxShowEvent &event) {
     // Always skip the event to allow default processing to continue.
     event.Skip();
 }
-wxPanel *TopFrame::getContainer() {
+ContainerPanel *TopFrame::getContainer() {
     wxASSERT(containerPanel != nullptr);
     return containerPanel;
+}
+void TopFrame::AddContainer(ContainerPanel *container) {
+    wxASSERT(container != nullptr);
+    wxASSERT(sizer != nullptr);
+
+    sizer->Add(container, 1, wxEXPAND | wxALL, 10);
+    containerPanel = container;
+
+    sizer->Fit(this);
 }
