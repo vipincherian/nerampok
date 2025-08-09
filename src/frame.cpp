@@ -178,7 +178,8 @@ void TopFrame::AddContainer(ContainerPanel *container) {
     wxASSERT(container != nullptr);
     wxASSERT(sizer != nullptr);
 
-    sizer->Add(container, 1, wxEXPAND | wxALL, 10);
+    // sizer->Add(container, 1, wxEXPAND | wxALL, 10);
+    sizer->Prepend(container, 1, wxEXPAND | wxALL, 10);
     containerPanel = container;
 
     sizer->Fit(this);

@@ -26,7 +26,7 @@ class ContainerPanel : public wxPanel {
     IController *parentController = NULL;
     // wxPanel *containerPanel;
     // void Chumma();
-    wxBoxSizer *sizer = nullptr;
+    // wxBoxSizer *sizer = nullptr;
     wxHeaderCtrlSimple *header = nullptr;
     wxHeaderColumnSimple *headerColSelect = nullptr;
     wxHeaderColumnSimple *headerColTitle = nullptr;
