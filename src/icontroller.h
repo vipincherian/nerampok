@@ -10,6 +10,7 @@ class IController {
     virtual void Quit() = 0;
     virtual void AddClock() = 0;
     virtual void CleanUp() = 0;
+    virtual void ResizeHeaderColumns() = 0;
 };
 
 #endif  // ICONTROLLER_H

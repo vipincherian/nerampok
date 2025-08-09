@@ -96,9 +96,10 @@ void Controller::CleanUp() {
 };
 void Controller::ReportClock() {}
 int Controller::getSmallestAvailableCockId() {
-    return util::rightmostZeroIndex(usedCockIds);
+    return util::rightmostZeroIndex(usedClockIds);
 }
 void Controller::AddToUsedClockIds(int idToAdd) {
     wxASSERT(idToAdd >= 0);
-    usedCockIds |= 1 << idToAdd;
+    usedClockIds |= 1 << idToAdd;
 }
+void Controller::ResizeHeaderColumns() {}

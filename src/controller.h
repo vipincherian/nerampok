@@ -20,7 +20,7 @@ class Controller : IController, IClockMediator {
    private:
     TopFrame *frame;
     Preferences preferences;
-    unsigned long long usedCockIds = 0;
+    unsigned long long usedClockIds = 0;
     std::unordered_map<int, ClockController *> clocks;
     // wxFrame *frame;
 
@@ -41,6 +41,7 @@ class Controller : IController, IClockMediator {
     void ReportClock() override;
     int getSmallestAvailableCockId();
     void AddToUsedClockIds(int idToAdd);
+    void ResizeHeaderColumns();
     // void run();  // Example method declaration
 };
 
