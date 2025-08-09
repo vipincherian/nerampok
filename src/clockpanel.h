@@ -16,13 +16,20 @@ class ClockPanel : public wxPanel {
     // void SetController(wxEvtHandler *controller);
     // wxPanel *getContainer();
     int GetSelectColumnWidth();
+    int GetTitleColumnWidth();
 
    private:
     IClockController *parentController = NULL;
     // wxPanel *containerPanel;
     // void Chumma();
-    wxPanel *cellSelect = nullptr;
+    wxPanel *cellSelect, *cellTitle = nullptr;
+    wxPanel *titleDisplay = nullptr;
+    wxString titleText =
+        "TimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTime"
+        "r";
     wxBoxSizer *sizer = nullptr;
+    wxCheckBox *checkboxSelect = nullptr;
+    void OnTitlePaint(wxPaintEvent &event);
 };
 
 #endif

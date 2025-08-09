@@ -1,6 +1,9 @@
 #include "clockpanel.h"
 
+#include <wx/dcbuffer.h>
+
 #include "constants.h"
+#include "preferencesreader.h"
 
 ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     : wxPanel(parent) {
@@ -8,21 +11,33 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
 
     SetSizer(sizer);
     cellSelect = new wxPanel(this);
-    wxBoxSizer *hsSelect = new wxBoxSizer(wxHORIZONTAL);
-    wxCheckBox *checkboxSelect = new wxCheckBox(cellSelect, wxID_ANY, "");
+    wxBoxSizer *sizerSelect = new wxBoxSizer(wxHORIZONTAL);
+    checkboxSelect = new wxCheckBox(cellSelect, wxID_ANY, "");
     // checkboxSelect->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
     // cellSelect->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
-    hsSelect->Add(checkboxSelect, 0, wxLEFT | wxRIGHT | wxEXPAND,
-                  //   wxSizerFlags::GetDefaultBorder());
-                  Constants::getInstance().getBorder());
-    cellSelect->SetSizer(hsSelect);
-    hsSelect->Layout();
+    sizerSelect->Add(checkboxSelect, 0, wxLEFT | wxRIGHT | wxEXPAND,
+                     //   wxSizerFlags::GetDefaultBorder());
+                     Constants::getInstance().getBorder());
+    cellSelect->SetSizer(sizerSelect);
+    sizerSelect->Layout();
 
-    wxPanel *cellTitle = new wxPanel(this);
-    wxColour lightBlue(200, 220, 255);
-    cellTitle->SetBackgroundColour(lightBlue);
+    cellTitle = new wxPanel(this);
+    wxBoxSizer *sizerTitle = new wxBoxSizer(wxHORIZONTAL);
+    // wxColour lightBlue(200, 220, 255);
+    // cellTitle->SetBackgroundColour(lightBlue);
     // cellTitle->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
-    cellTitle->Refresh();
+
+    titleDisplay = new wxPanel(cellTitle, wxID_ANY, wxDefaultPosition,
+                               wxDefaultSize, wxBORDER_SUNKEN);
+    // wxColour lightCol(250, 0, 255);
+    // titleDisplay->SetBackgroundColour(lightCol);
+    titleDisplay->SetBackgroundStyle(wxBG_STYLE_PAINT);
+    titleDisplay->Bind(wxEVT_PAINT, &ClockPanel::OnTitlePaint, this);
+    sizerTitle->Add(titleDisplay, 1, wxLEFT | wxRIGHT | wxEXPAND,
+                    PreferencesReader::getInstance().getBorder());
+
+    cellTitle->SetSizer(sizerTitle);
+    sizerTitle->Layout();
 
     wxPanel *cellControls = new wxPanel(this);
     wxBoxSizer *hsControls = new wxBoxSizer(wxHORIZONTAL);
@@ -50,7 +65,32 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
 }
 
 int ClockPanel::GetSelectColumnWidth() {
-    int a = wxSizerFlags::GetDefaultBorder();
-    return GetPosition().x + cellSelect->GetPosition().x +
+    // return GetPosition().x + cellSelect->GetPosition().x +
+    //    cellSelect->GetSize().GetWidth();
+    return PreferencesReader::getInstance().getBorder() +
            cellSelect->GetSize().GetWidth();
+}
+
+int ClockPanel::GetTitleColumnWidth() {
+    return (2 * PreferencesReader::getInstance().getBorder()) +
+           cellTitle->GetSize().GetWidth();
+}
+
+void ClockPanel ::OnTitlePaint(wxPaintEvent &event) {
+    wxAutoBufferedPaintDC dc(titleDisplay);
+    dc.Clear();
+
+    wxRect rect = titleDisplay->GetClientRect();
+
+    dc.SetFont(GetFont());
+    dc.SetBackgroundMode(wxBRUSHSTYLE_TRANSPARENT);
+
+    // Determine text size
+    wxCoord textW, textH;
+    dc.GetTextExtent(titleText, &textW, &textH);
+
+    int x = rect.x + PreferencesReader::getInstance().getBorder();  // Left edge
+    int y = rect.y + (rect.height - textH) / 2;  // Vertically centered
+
+    dc.DrawText(titleText, x, y);
 }
