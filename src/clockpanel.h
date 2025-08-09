@@ -15,7 +15,7 @@ class ClockPanel : public wxPanel {
     explicit ClockPanel(IClockController *controller, wxPanel *parent);
     // void SetController(wxEvtHandler *controller);
     // wxPanel *getContainer();
-    int GetSelectCellWidth();
+    int GetSelectColumnWidth();
 
    private:
     IClockController *parentController = NULL;

@@ -168,6 +168,7 @@ void TopFrame::OnShow(wxShowEvent &event) {
     SetSize(wxSize(PreferencesReader::getInstance().getFrameWidth(),
                    PreferencesReader::getInstance().getFrameHeight()));
     // Always skip the event to allow default processing to continue.
+
     event.Skip();
 }
 ContainerPanel *TopFrame::getContainer() {
@@ -179,7 +180,8 @@ void TopFrame::AddContainer(ContainerPanel *container) {
     wxASSERT(sizer != nullptr);
 
     // sizer->Add(container, 1, wxEXPAND | wxALL, 10);
-    sizer->Prepend(container, 1, wxEXPAND | wxALL, 10);
+    sizer->Prepend(container, 1, wxEXPAND | wxALL,
+                   wxSizerFlags::GetDefaultBorder());
     containerPanel = container;
 
     sizer->Fit(this);

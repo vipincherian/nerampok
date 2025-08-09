@@ -88,6 +88,13 @@ int PreferencesReader::getFrameHeight() const {
     return 600;
 }
 
+int PreferencesReader::getBorder() const {
+    if (preferences) {
+        return preferences->getBorder();
+    }
+    // Return default value if not loaded.
+    return 600;
+}
 void PreferencesReader::SetPreferences(Preferences* prefs) {
     this->preferences = prefs;
 }

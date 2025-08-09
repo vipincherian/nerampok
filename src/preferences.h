@@ -35,6 +35,7 @@ class Preferences {
 
     void setFramePosition(int x, int y);
     void setFrameDimensions(int w, int h);
+    int getBorder() const;
 
    private:
     wxFileName configFilePath;
@@ -49,6 +50,7 @@ class Preferences {
     int framePositionY;
     int frameWidth;
     int frameHeight;
+    int border = 0;
 };
 
 #endif  // PREFERENCES_H

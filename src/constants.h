@@ -34,10 +34,13 @@ class Constants {
     // Getter methods for accessing the constant values.
     wxString getAppTitle() const;
     wxString getAppConfigDirName() const;
+    int getBorder();
 
    private:
     // Private constructor to prevent direct instantiation.
     Constants();
+
+    void UpdateDimensionsCache();
 
     // Private copy constructor and assignment operator to prevent cloning.
     Constants(const Constants&) = delete;
@@ -46,6 +49,7 @@ class Constants {
     // Member variables to hold the constant values.
     wxString appTitle = APP_TITLE;
     wxString appConfigDirName = APP_TITLE;
+    int border = 0;
 };
 
 #endif  // CONSTANTS_H

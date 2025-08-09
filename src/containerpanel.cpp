@@ -57,13 +57,15 @@ void ContainerPanel::ResizeHeaderColumns() {
     if (!panels.IsEmpty()) {
         auto it = panels.GetFirst();
         ClockPanel *firstClockPanel = it->GetData();
-        int width = firstClockPanel->GetSelectCellWidth();
+        int width = firstClockPanel->GetSelectColumnWidth();
         headerColSelect->SetWidth(width);
         // header->Update();
         // header->InvalidateBestSize();
         // header->Refresh();
         // header->Update();
         // TODO: Find a better way?
+
+        // This is the only way that works. SetSize does not work
         header->DeleteColumn(0);
         header->InsertColumn(*headerColSelect, 0);
     }

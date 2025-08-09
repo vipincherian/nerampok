@@ -27,6 +27,7 @@ Preferences::Preferences()
                           wxFileName::GetPathSeparator() + PREF_FILE_NAME);
     std::cout << "User configuration directory "
               << configFilePath.GetFullPath();
+    border = Constants::getInstance().getBorder();
 }
 
 /**
@@ -193,3 +194,4 @@ void Preferences::setFrameDimensions(int w, int h) {
     frameWidth = w;
     frameHeight = h;
 }
+int Preferences::getBorder() const { return border; }

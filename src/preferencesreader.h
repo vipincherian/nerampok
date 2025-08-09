@@ -36,6 +36,7 @@ class PreferencesReader {
     int getFramePositionY() const;
     int getFrameWidth() const;
     int getFrameHeight() const;
+    int getBorder() const;
 
     void SetPreferences(Preferences* prefs);
 
