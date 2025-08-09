@@ -8,12 +8,15 @@
 #endif
 #include <wx/headercol.h>
 #include <wx/headerctrl.h>  // Include for wxHeaderCtrl
+#include <wx/list.h>
 
 #include <iostream>
 
 #include "clockpanel.h"
 #include "iclockcontroller.h"
 #include "icontroller.h"
+
+WX_DECLARE_LIST(ClockPanel, ClockPanelList);
 
 class ContainerPanel : public wxPanel {
    public:
@@ -24,6 +27,7 @@ class ContainerPanel : public wxPanel {
 
    private:
     IController *parentController = NULL;
+    ClockPanelList panels;
     // wxPanel *containerPanel;
     // void Chumma();
     // wxBoxSizer *sizer = nullptr;
@@ -32,6 +36,8 @@ class ContainerPanel : public wxPanel {
     wxHeaderColumnSimple *headerColTitle = nullptr;
     wxHeaderColumnSimple *headerColDuration = nullptr;
     wxHeaderColumnSimple *headerColControls = nullptr;
+    void OnSize(wxSizeEvent &event);
+    void ResizeHeaderColumns();
 };
 
 #endif

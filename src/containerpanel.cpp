@@ -1,5 +1,9 @@
 #include "containerpanel.h"
 
+#include <wx/listimpl.cpp>
+
+WX_DEFINE_LIST(ClockPanelList);
+
 ContainerPanel::ContainerPanel(IController *controller, wxFrame *parent)
     : wxPanel(parent) {
     // Set a sunken border for the panel
@@ -7,9 +11,9 @@ ContainerPanel::ContainerPanel(IController *controller, wxFrame *parent)
 
     // We cannot use wxHD_DEFAULT_STYLE here as this allows re-ordering of
     // header columns. So instead, 0x0000 is passed as STYLE.
-    header =
-        new wxHeaderCtrlSimple(this, wxID_ANY, wxDefaultPosition, wxDefaultSize,
-                               0x0000);  // wxHD_DEFAULT_STYLE);
+    header = new wxHeaderCtrlSimple(this, wxID_ANY, wxDefaultPosition,
+                                    wxDefaultSize, wxHD_DEFAULT_STYLE);
+    //    0x0000);  // wxHD_DEFAULT_STYLE);
     // While creating columns, argument _flags_ is passed as 0x0000 in order
     // to disable resizing
     headerColSelect = new wxHeaderColumnSimple("", 100, wxALIGN_CENTER, 0x0000);
@@ -28,11 +32,39 @@ ContainerPanel::ContainerPanel(IController *controller, wxFrame *parent)
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
     sizer->Add(header, 0, wxEXPAND);
     SetSizer(sizer);
+    Bind(wxEVT_SIZE, &ContainerPanel::OnSize, this);
 }
 ClockPanel *ContainerPanel::AddClockPanel(IClockController *parentController) {
     // container->GetSizer()->Layout();
-    ClockPanel *clockPanel = new ClockPanel(parentController, this);
-    GetSizer()->Add(clockPanel, 0, wxTOP | wxEXPAND, 10);
+    ClockPanel *newClockPanel = new ClockPanel(parentController, this);
+    GetSizer()->Add(newClockPanel, 0, wxTOP | wxEXPAND, 10);
     GetSizer()->Layout();
-    return clockPanel;
+
+    panels.Append(newClockPanel);
+
+    ResizeHeaderColumns();
+
+    return newClockPanel;
+}
+void ContainerPanel::OnSize(wxSizeEvent &event) {
+    std::cout << "Inside ContainerPanel::OnSize\n";
+    // headerColSelect->SetWidth()
+    ResizeHeaderColumns();
+    event.Skip();
+}
+
+void ContainerPanel::ResizeHeaderColumns() {
+    if (!panels.IsEmpty()) {
+        auto it = panels.GetFirst();
+        ClockPanel *firstClockPanel = it->GetData();
+        int width = firstClockPanel->GetSelectCellWidth();
+        headerColSelect->SetWidth(width);
+        // header->Update();
+        // header->InvalidateBestSize();
+        // header->Refresh();
+        // header->Update();
+        // TODO: Find a better way?
+        header->DeleteColumn(0);
+        header->InsertColumn(*headerColSelect, 0);
+    }
 }

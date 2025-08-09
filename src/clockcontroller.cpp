@@ -12,10 +12,12 @@ ClockController::ClockController(IClockMediator *mediator,
     : IClockController(), clockMediator(mediator), container(continer) {
     // The constructor is empty as the member variable is initialized in the
     // initializer list.
+    wxASSERT(id >= 0);
     this->id = id;
     // clockPanel = new ClockPanel(this, container);
     // TODO: Controller should not go GUI. Move this to TopFrame
     // container->GetSizer()->Add(clockPanel, 0, wxTOP | wxEXPAND, 10);
     // container->GetSizer()->Layout();
     clockPanel = container->AddClockPanel(this);
+    wxASSERT(clockPanel != nullptr);
 }

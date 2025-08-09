@@ -2,13 +2,14 @@
 
 ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     : wxPanel(parent) {
-    wxBoxSizer *hs = new wxBoxSizer(wxHORIZONTAL);
+    sizer = new wxBoxSizer(wxHORIZONTAL);
 
-    SetSizer(hs);
-    wxPanel *cellSelect = new wxPanel(this);
+    SetSizer(sizer);
+    cellSelect = new wxPanel(this);
     wxBoxSizer *hsSelect = new wxBoxSizer(wxHORIZONTAL);
     wxCheckBox *checkboxSelect = new wxCheckBox(cellSelect, wxID_ANY, "");
-    checkboxSelect->SetMinClientSize(wxSize(100, 10));
+    // checkboxSelect->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
+    // cellSelect->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
     hsSelect->Add(checkboxSelect, 0, wxLEFT | wxEXPAND, 10);
     cellSelect->SetSizer(hsSelect);
     hsSelect->Layout();
@@ -16,7 +17,7 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     wxPanel *cellTitle = new wxPanel(this);
     wxColour lightBlue(200, 220, 255);
     cellTitle->SetBackgroundColour(lightBlue);
-    cellTitle->SetMinClientSize(wxSize(100, 10));
+    // cellTitle->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
     cellTitle->Refresh();
 
     wxPanel *cellControls = new wxPanel(this);
@@ -33,8 +34,13 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     hsControls->Layout();
 
     cellSelect->SetClientSize(wxSize(200, 100));
-    hs->Add(cellSelect, 0, wxLEFT | wxEXPAND, 10);
-    hs->Add(cellTitle, 1, wxLEFT | wxEXPAND, 10);
-    hs->Add(cellControls, 0, wxLEFT | wxEXPAND, 10);
-    hs->Layout();
+    sizer->Add(cellSelect, 0, wxLEFT | wxEXPAND, 10);
+    sizer->Add(cellTitle, 1, wxLEFT | wxEXPAND, 10);
+    sizer->Add(cellControls, 0, wxLEFT | wxEXPAND, 10);
+    sizer->Layout();
+}
+
+int ClockPanel::GetSelectCellWidth() {
+    return sizer->GetPosition().x + cellSelect->GetPosition().x +
+           cellSelect->GetSize().GetWidth();
 }

@@ -14,12 +14,15 @@ class ClockPanel : public wxPanel {
    public:
     explicit ClockPanel(IClockController *controller, wxPanel *parent);
     // void SetController(wxEvtHandler *controller);
-    wxPanel *getContainer();
+    // wxPanel *getContainer();
+    int GetSelectCellWidth();
 
    private:
     IClockController *parentController = NULL;
     // wxPanel *containerPanel;
     // void Chumma();
+    wxPanel *cellSelect = nullptr;
+    wxBoxSizer *sizer = nullptr;
 };
 
 #endif
