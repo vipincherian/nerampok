@@ -43,7 +43,7 @@ class Controller : IController, IClockMediator {
     void ReportClock() override;
     int getSmallestAvailableCockId();
     void AddToUsedClockIds(int idToAdd);
-    void ResizeHeaderColumns();
+    void ResizeHeaderColumns() override;
     // void run();  // Example method declaration
 };
 

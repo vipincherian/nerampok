@@ -17,7 +17,7 @@ wxBitmap ArtProvider::CreateBitmap(const wxArtID& id, const wxArtClient& client,
 
     wxBitmapBundle bundle = wxBitmapBundle::FromSVGFile(svgPath, size);
     if (!bundle.IsOk()) {
-        std::cout << "Failed to load SVG for art ID '%s' from %s", id, svgPath;
+        std::cout << "Failed to load SVG for art ID '%s' from %s";
         return wxNullBitmap;
     }
 

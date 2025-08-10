@@ -119,7 +119,7 @@ int ClockPanel::GetReportColumnWidth() {
            cellReport->GetSize().GetWidth();
 }
 
-void ClockPanel ::OnTitlePaint(wxPaintEvent &event) {
+void ClockPanel ::OnTitlePaint(const wxPaintEvent &event) {
     wxAutoBufferedPaintDC dc(titleDisplay);
     dc.Clear();
 

@@ -36,7 +36,7 @@ class ClockPanel : public wxPanel {
     wxBitmapButton *buttonStart = nullptr;
     wxBitmapButton *buttonStop = nullptr;
     wxBitmapButton *buttonFix = nullptr;
-    void OnTitlePaint(wxPaintEvent &event);
+    void OnTitlePaint(const wxPaintEvent &event);
 };
 
 #endif
