@@ -2,6 +2,7 @@
 
 #include <wx/dcbuffer.h>
 
+#include "artprovider.h"
 #include "constants.h"
 #include "preferencesreader.h"
 
@@ -27,8 +28,13 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     // wxColour lightBlue(200, 220, 255);
     // cellTitle->SetBackgroundColour(lightBlue);
     // cellTitle->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
-    wxButton *buttonEdit = new wxButton(cellTitle, wxID_ANY, "Edit",
-                                        wxDefaultPosition, wxDefaultSize);
+    // wxButton *buttonEdit = new wxButton(cellTitle, wxID_ANY, "Edit",
+    // wxDefaultPosition, wxDefaultSize);
+    buttonEdit = new wxBitmapButton(
+        cellTitle, wxID_ANY,
+        wxArtProvider::GetBitmap("CLOCK_EDIT", wxART_OTHER, wxSize(24, 24)),
+        wxDefaultPosition, wxDefaultSize);
+    // buttonEdit->Disable();
     titleDisplay = new wxPanel(cellTitle, wxID_ANY, wxDefaultPosition,
                                wxDefaultSize, wxBORDER_SUNKEN);
     sizerTitle->Add(buttonEdit, 0, wxLEFT | wxEXPAND);
@@ -46,14 +52,26 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     wxPanel *cellControls = new wxPanel(this);
     wxBoxSizer *hsControls = new wxBoxSizer(wxHORIZONTAL);
 
-    wxButton *buttonStart = new wxButton(cellControls, wxID_ANY, "Start",
-                                         wxDefaultPosition, wxDefaultSize);
-    wxButton *buttonStop = new wxButton(cellControls, wxID_ANY, "Stop",
-                                        wxDefaultPosition, wxDefaultSize);
+    buttonStart = new wxBitmapButton(
+        cellControls, wxID_ANY,
+        wxArtProvider::GetBitmap("CLOCK_START", wxART_OTHER, wxSize(24, 24)),
+        wxDefaultPosition, wxDefaultSize);
+    buttonStop = new wxBitmapButton(
+        cellControls, wxID_ANY,
+        wxArtProvider::GetBitmap("CLOCK_STOP", wxART_OTHER, wxSize(24, 24)),
+        wxDefaultPosition, wxDefaultSize);
+    buttonFix = new wxBitmapButton(
+        cellControls, wxID_ANY,
+        wxArtProvider::GetBitmap("CLOCK_FIX", wxART_OTHER, wxSize(24, 24)),
+        wxDefaultPosition, wxDefaultSize);
+    // wxButton *buttonStop = new wxButton(cellControls, wxID_ANY, "Stop",
+    // wxDefaultPosition, wxDefaultSize);
 
     hsControls->Add(buttonStart, 0, wxLEFT | wxEXPAND,
                     wxSizerFlags::GetDefaultBorder());
     hsControls->Add(buttonStop, 0, wxLEFT | wxEXPAND,
+                    wxSizerFlags::GetDefaultBorder());
+    hsControls->Add(buttonFix, 0, wxLEFT | wxEXPAND,
                     wxSizerFlags::GetDefaultBorder());
     cellControls->SetSizer(hsControls);
     hsControls->Layout();

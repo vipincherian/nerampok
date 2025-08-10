@@ -30,6 +30,10 @@ class ClockPanel : public wxPanel {
     wxBoxSizer *sizer = nullptr;
     wxCheckBox *checkboxSelect = nullptr;
     wxCheckBox *checkboxReport = nullptr;
+    wxBitmapButton *buttonEdit = nullptr;
+    wxBitmapButton *buttonStart = nullptr;
+    wxBitmapButton *buttonStop = nullptr;
+    wxBitmapButton *buttonFix = nullptr;
     void OnTitlePaint(wxPaintEvent &event);
 };
 

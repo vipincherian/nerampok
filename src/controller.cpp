@@ -1,5 +1,6 @@
 #include "controller.h"
 
+#include "artprovider.h"
 #include "preferencesreader.h"
 #include "utils.h"
 
@@ -14,6 +15,8 @@ Controller::Controller() : IController(), IClockMediator() {
     // wxStandardPa
     preferences.Load();
     PreferencesReader::getInstance().SetPreferences(&preferences);
+
+    wxArtProvider::Push(new ArtProvider());
 
     // Initialization logic here
     // frame = new MyFrame();

@@ -25,6 +25,7 @@ set(SOURCES
     clockcontroller.cpp
     clockpanel.cpp
     containerpanel.cpp
+    artprovider.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
