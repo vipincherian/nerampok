@@ -36,6 +36,7 @@ class ClockPanel : public wxPanel {
     // void Chumma();
     wxPanel *cellSelect, *cellTitle, *cellControls, *cellReport = nullptr;
     wxPanel *titleDisplay = nullptr;
+    wxPanel *countdownDisplay = nullptr;
     wxString titleText =
         "TimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTime"
         "r";
@@ -46,9 +47,15 @@ class ClockPanel : public wxPanel {
     wxBitmapButton *buttonStart = nullptr;
     wxBitmapButton *buttonStop = nullptr;
     wxBitmapButton *buttonFix = nullptr;
+    wxCoord widestRepeatedDigitExtent = 0;
+    wxCoord timeSeparatorExtent = 0;
+
     void OnTitlePaint(const wxPaintEvent &event);
+    void OnCountdownPaint(const wxPaintEvent &event);
     void OnPlayButtonClick(const wxCommandEvent &event);
     void OnStopButtonClick(const wxCommandEvent &event);
+    wxCoord FindWidestRepeatedDigitExtent();
+    wxCoord FindTimeSeparatorExtent();
 };
 
 #endif

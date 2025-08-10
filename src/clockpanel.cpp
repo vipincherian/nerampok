@@ -35,14 +35,27 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
         wxArtProvider::GetBitmap("CLOCK_EDIT", wxART_OTHER, wxSize(24, 24)),
         wxDefaultPosition, wxDefaultSize);
     // buttonEdit->Disable();
+    sizerTitle->Add(buttonEdit, 0, wxLEFT | wxEXPAND);
     titleDisplay = new wxPanel(cellTitle, wxID_ANY, wxDefaultPosition,
                                wxDefaultSize, wxBORDER_SUNKEN);
-    sizerTitle->Add(buttonEdit, 0, wxLEFT | wxEXPAND);
     // wxColour lightCol(250, 0, 255);
     // titleDisplay->SetBackgroundColour(lightCol);
     titleDisplay->SetBackgroundStyle(wxBG_STYLE_PAINT);
     titleDisplay->Bind(wxEVT_PAINT, &ClockPanel::OnTitlePaint, this);
+    countdownDisplay = new wxPanel(cellTitle, wxID_ANY);
+    countdownDisplay->SetBackgroundStyle(wxBG_STYLE_PAINT);
+
+    widestRepeatedDigitExtent = FindWidestRepeatedDigitExtent();
+    timeSeparatorExtent = FindTimeSeparatorExtent();
+
+    countdownDisplay->SetMinClientSize(
+        wxSize((widestRepeatedDigitExtent * 3) + (timeSeparatorExtent * 6),
+               wxDefaultSize.GetHeight()));
+    countdownDisplay->Bind(wxEVT_PAINT, &ClockPanel::OnCountdownPaint, this);
+
     sizerTitle->Add(titleDisplay, 1, wxLEFT | wxRIGHT | wxEXPAND,
+                    PreferencesReader::getInstance().getBorder());
+    sizerTitle->Add(countdownDisplay, 0, wxLEFT | wxRIGHT | wxEXPAND,
                     PreferencesReader::getInstance().getBorder());
     cellTitle->SetSizer(sizerTitle);
     sizerTitle->Layout();
@@ -138,6 +151,57 @@ void ClockPanel ::OnTitlePaint(const wxPaintEvent &event) {
     int y = rect.y + (rect.height - textH) / 2;  // Vertically centered
 
     dc.DrawText(titleText, x, y);
+}
+
+void ClockPanel::OnCountdownPaint(const wxPaintEvent &event) {
+    wxAutoBufferedPaintDC dc(countdownDisplay);
+    dc.Clear();
+
+    wxRect rect = countdownDisplay->GetClientRect();
+
+    dc.SetFont(GetFont());
+    dc.SetBackgroundMode(wxBRUSHSTYLE_TRANSPARENT);
+
+    // Determine text size
+    wxCoord textW, textH;
+    dc.GetTextExtent(wxString("00:00:00"), &textW, &textH);
+
+    int x = rect.x + PreferencesReader::getInstance().getBorder();  // Left edge
+    int y = rect.y + (rect.height - textH) / 2;  // Vertically centered
+
+    dc.DrawText("00:00:00", x, y);
+}
+wxCoord ClockPanel::FindWidestRepeatedDigitExtent() {
+    wxClientDC dc(countdownDisplay);
+    dc.SetFont(GetFont());
+
+    wxString widest = "";
+    wxCoord maxWidth = 0, maxHeight = 0;
+
+    for (int digit = 0; digit <= 9; ++digit) {
+        wxString s = wxString::Format("%1d%1d", digit, digit);
+
+        wxCoord w, h;
+        dc.GetTextExtent(s, &w, &h);
+
+        if (w > maxWidth) {
+            maxWidth = w;
+            maxHeight = h;
+            widest = s;
+        }
+    }
+
+    // outWidth = maxWidth;
+    // outHeight = maxHeight;
+    return maxWidth;
+}
+wxCoord ClockPanel::FindTimeSeparatorExtent() {
+    wxClientDC dc(countdownDisplay);
+    dc.SetFont(GetFont());
+
+    wxCoord w, h;
+    dc.GetTextExtent(":", &w, &h);
+    return w;
 }
 
 void ClockPanel::EnableStopButton() { buttonStop->Enable(); }
