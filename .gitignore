@@ -8,6 +8,7 @@ lib/
 
 # Visual Studio Code specific files
 .vscode/
+.vscode_/
 *.code-workspace
 
 # Dependency management

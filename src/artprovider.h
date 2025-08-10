@@ -19,6 +19,6 @@ class ArtProvider : public wxArtProvider {
    private:
     // wxString m_svgPath;
     // wxArtID m_artId;
-    wxString GetSvgPathForId(const wxArtID& id) const;
+    wxString GetSvgDataForId(const wxArtID& id) const;
 };
 #endif  // ART_PROVIDER_H
