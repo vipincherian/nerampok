@@ -33,7 +33,9 @@ wxBitmap ArtProvider::CreateBitmap(const wxArtID& id, const wxArtClient& client,
 wxString ArtProvider::GetSvgDataForId(const wxArtID& id) const {
     // Switch-like mapping — change according to your needs
     if (id == "CLOCK_EDIT") return SVG_EDIT;
-    if (id == "CLOCK_START") return SVG_EDIT;
+    if (id == "CLOCK_START") return SVG_START;
+    if (id == "CLOCK_STOP") return SVG_STOP;
+    if (id == "CLOCK_FIX") return SVG_HAMMER;
     // if (id == "CLOCK_START") return "./src/build/start.svg";
     // if (id == "CLOCK_STOP") return "./src/build/stop.svg";
     // if (id == "CLOCK_FIX") return "./src/build/hammer.svg";
