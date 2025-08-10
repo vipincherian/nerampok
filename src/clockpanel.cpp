@@ -49,7 +49,7 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
 
     // Panel for controls
 
-    wxPanel *cellControls = new wxPanel(this);
+    cellControls = new wxPanel(this);
     wxBoxSizer *hsControls = new wxBoxSizer(wxHORIZONTAL);
 
     buttonStart = new wxBitmapButton(
@@ -105,8 +105,18 @@ int ClockPanel::GetSelectColumnWidth() {
 }
 
 int ClockPanel::GetTitleColumnWidth() {
-    return (2 * PreferencesReader::getInstance().getBorder()) +
+    return PreferencesReader::getInstance().getBorder() +
            cellTitle->GetSize().GetWidth();
+}
+
+int ClockPanel::GetControlsColumnWidth() {
+    return (2 * PreferencesReader::getInstance().getBorder()) +
+           cellControls->GetSize().GetWidth();
+}
+
+int ClockPanel::GetReportColumnWidth() {
+    return (2 * PreferencesReader::getInstance().getBorder()) +
+           cellReport->GetSize().GetWidth();
 }
 
 void ClockPanel ::OnTitlePaint(wxPaintEvent &event) {

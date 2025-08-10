@@ -17,12 +17,14 @@ class ClockPanel : public wxPanel {
     // wxPanel *getContainer();
     int GetSelectColumnWidth();
     int GetTitleColumnWidth();
+    int GetControlsColumnWidth();
+    int GetReportColumnWidth();
 
    private:
     IClockController *parentController = NULL;
     // wxPanel *containerPanel;
     // void Chumma();
-    wxPanel *cellSelect, *cellTitle, *cellReport = nullptr;
+    wxPanel *cellSelect, *cellTitle, *cellControls, *cellReport = nullptr;
     wxPanel *titleDisplay = nullptr;
     wxString titleText =
         "TimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTime"

@@ -17,7 +17,8 @@ const wxString STATUS_MESSAGE = "Application is ready.";
 
 // Other application-specific constants
 constexpr int MAX_ITEMS = 100;
-const std::string API_ENDPOINT = "https://api.example.com/data";
+// const std::string API_ENDPOINT = "https://api.example.com/data";
+const wxString REPORT_COLUMN_TITLE = "Report";
 
 /**
  * @class Constants

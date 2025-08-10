@@ -36,8 +36,10 @@ class ContainerPanel : public wxPanel {
     wxHeaderColumnSimple *headerColTitle = nullptr;
     wxHeaderColumnSimple *headerColControls = nullptr;
     wxHeaderColumnSimple *headerColReport = nullptr;
+    int minWidthHeaderColReport = 0;
     void OnSize(wxSizeEvent &event);
     void ResizeHeaderColumns();
+    wxCoord GetColMinWidth(wxHeaderCtrl *headerCtrl, const wxString &title);
 };
 
 #endif

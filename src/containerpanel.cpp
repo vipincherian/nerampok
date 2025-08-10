@@ -2,6 +2,8 @@
 
 #include <wx/listimpl.cpp>
 
+#include "constants.h"
+
 WX_DEFINE_LIST(ClockPanelList);
 
 ContainerPanel::ContainerPanel(IController *controller, wxFrame *parent)
@@ -21,12 +23,15 @@ ContainerPanel::ContainerPanel(IController *controller, wxFrame *parent)
         new wxHeaderColumnSimple("Title", 100, wxALIGN_CENTER, 0x0000);
     headerColControls =
         new wxHeaderColumnSimple("Controls", 200, wxALIGN_CENTER, 0x0000);
-    headerColReport =
-        new wxHeaderColumnSimple("Report", 150, wxALIGN_CENTER, 0x0000);
+    headerColReport = new wxHeaderColumnSimple(REPORT_COLUMN_TITLE, 150,
+                                               wxALIGN_CENTER, 0x0000);
     header->AppendColumn(*headerColSelect);
     header->AppendColumn(*headerColTitle);
     header->AppendColumn(*headerColControls);
     header->AppendColumn(*headerColReport);
+
+    minWidthHeaderColReport = GetColMinWidth(header, REPORT_COLUMN_TITLE);
+    wxASSERT(minWidthHeaderColReport > 0);
 
     // 2. Main vertical sizer
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
@@ -61,15 +66,40 @@ void ContainerPanel::ResizeHeaderColumns() {
         headerColSelect->SetWidth(widthSelect);
         int widthTitle = firstClockPanel->GetTitleColumnWidth();
         headerColTitle->SetWidth(widthTitle);
+        int widthControls = firstClockPanel->GetControlsColumnWidth();
+        headerColControls->SetWidth(widthControls);
+        int widthReport = firstClockPanel->GetReportColumnWidth();
+        widthReport = std::max({minWidthHeaderColReport, widthReport});
+        headerColReport->SetWidth(widthReport);
 
         // header->Update();
         // header->InvalidateBestSize();
         // header->Refresh();
         // header->Update();
-        // TODO: Find a better way?
-        header->DeleteColumn(0);
-        header->DeleteColumn(0);
-        header->InsertColumn(*headerColSelect, 0);
-        header->InsertColumn(*headerColTitle, 1);
+
+        // This is the only way to resize columns, delete and add
+
+        header->DeleteAllColumns();
+        header->AppendColumn(*headerColSelect);
+        header->AppendColumn(*headerColTitle);
+        header->AppendColumn(*headerColControls);
+        header->AppendColumn(*headerColReport);
     }
+}
+wxCoord ContainerPanel::GetColMinWidth(wxHeaderCtrl *headerCtrl,
+                                       const wxString &title) {
+    // Use a device context to measure how wide the text will be
+    wxClientDC dc(headerCtrl);
+    dc.SetFont(headerCtrl->GetFont());
+
+    wxCoord textW, textH;
+    dc.GetTextExtent(title, &textW,
+                     &textH);  // measure the title size
+                               // :contentReference[oaicite:0]{index=0}
+
+    // Add a padding buffer to avoid clipping/margins
+    const int padding = 10;
+    wxCoord minWidth = textW + padding;
+
+    return minWidth;
 }
