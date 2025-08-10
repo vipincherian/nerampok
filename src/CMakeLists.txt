@@ -26,6 +26,10 @@ set(SOURCES
     clockpanel.cpp
     containerpanel.cpp
     artprovider.cpp
+    stoppedclock.cpp
+    playingclock.cpp
+    pausedclock.cpp
+    alertingclock.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

@@ -9,56 +9,15 @@
 
 #include <iostream>
 
+#include "alertingclock.h"
 #include "clockpanel.h"
 #include "containerpanel.h"
 #include "iclockcontroller.h"
 #include "iclockmediator.h"
 #include "iclockstate.h"
-
-class StoppedClock : public IClockState {
-   private:
-    IClockController* controller = nullptr;
-    ClockPanel* panel = nullptr;
-
-   public:
-    explicit StoppedClock(IClockController* controller, ClockPanel* panel);
-    void Play() override {
-        std::cout << "Starting clock.\n";
-        // Transition to PlayingState
-    }
-    void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
-    void Stop() override { std::cout << "Already stopped.\n"; }
-};
-
-class PlayingClock : public IClockState {
-   private:
-    IClockController* controller = nullptr;
-    ClockPanel* panel = nullptr;
-
-   public:
-    explicit PlayingClock(IClockController* controller, ClockPanel* panel);
-    void Play() override {
-        std::cout << "Starting clock.\n";
-        // Transition to PlayingState
-    }
-    void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
-    void Stop() override { std::cout << "Already stopped.\n"; }
-};
-
-class PausedClock : public IClockState {
-   private:
-    IClockController* controller = nullptr;
-    ClockPanel* panel = nullptr;
-
-   public:
-    explicit PausedClock(IClockController* controller, ClockPanel* panel);
-    void Play() override {
-        std::cout << "Starting clock.\n";
-        // Transition to PlayingState
-    }
-    void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
-    void Stop() override { std::cout << "Already stopped.\n"; }
-};
+#include "pausedclock.h"
+#include "playingclock.h"
+#include "stoppedclock.h"
 
 // Forward declaration of the IClockMediator interface.
 // We assume this interface is defined in a separate header.
@@ -98,9 +57,12 @@ class ClockController : IClockController {
     ContainerPanel* container = nullptr;
     int id = -1;
     ClockPanel* clockPanel = nullptr;
-    IClockState* currentState = nullptr;
+    IClockState* clock = nullptr;
 
     StoppedClock* stoppedClock = nullptr;
+    PlayingClock* playingClock = nullptr;
+    PausedClock* pausedClock = nullptr;
+    AlertingClock* alertingClock = nullptr;
 };
 
 #endif  // CLOCK_CONTROLLER_H
