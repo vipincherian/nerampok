@@ -20,4 +20,31 @@ ClockController::ClockController(IClockMediator *mediator,
     // container->GetSizer()->Layout();
     clockPanel = container->AddClockPanel(this);
     wxASSERT(clockPanel != nullptr);
+
+    stoppedClock = new StoppedClock(this, clockPanel);
+
+    currentState = stoppedClock;
+}
+ClockController::~ClockController() {
+    std::cout << "Inside ~ClockController\n";
+    wxASSERT(stoppedClock != nullptr);
+    delete stoppedClock;
+}
+
+StoppedClock::StoppedClock(IClockController *controller, ClockPanel *panel)
+    : IClockState(), controller(controller), panel(panel) {
+    wxASSERT(controller != nullptr);
+    wxASSERT(panel != nullptr);
+}
+
+PlayingClock::PlayingClock(IClockController *controller, ClockPanel *panel)
+    : IClockState(), controller(controller), panel(panel) {
+    wxASSERT(controller != nullptr);
+    wxASSERT(panel != nullptr);
+}
+
+PausedClock::PausedClock(IClockController *controller, ClockPanel *panel)
+    : IClockState(), controller(controller), panel(panel) {
+    wxASSERT(controller != nullptr);
+    wxASSERT(panel != nullptr);
 }

@@ -38,6 +38,11 @@ Controller::~Controller() {
     preferences.Save();
     std::cout << "Controller destructed\n";
     // Cleanup logic here
+    for (const auto& [key, controller] : clocks) {
+        // Use key (int) and controller (ClockController*)
+        wxASSERT(controller != nullptr);
+        delete controller;
+    }
 }
 
 // void Controller::run() { std::cout << "Controller running\n"; }
@@ -83,7 +88,7 @@ void Controller::AddClock() {
     //           << "\n";
 
     int id = getSmallestAvailableCockId();
-    ClockController *cc = new ClockController(this, frame->getContainer(), id);
+    ClockController* cc = new ClockController(this, frame->getContainer(), id);
     AddToUsedClockIds(id);
     clocks[id] = cc;
 

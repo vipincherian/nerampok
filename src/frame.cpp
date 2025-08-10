@@ -122,8 +122,7 @@ void TopFrame::OnExit(const wxCommandEvent &event) {
 }
 
 void TopFrame::OnAbout(const wxCommandEvent &event) {
-    wxMessageBox("This is a wxWidgets Hello World example", "About Hello World",
-                 wxOK | wxICON_INFORMATION);
+    wxMessageBox("Author: Vipin Cherian", "About", wxOK | wxICON_INFORMATION);
 }
 
 void TopFrame::OnNewTimer(const wxCommandEvent &event) {

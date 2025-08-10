@@ -13,7 +13,7 @@ wxBitmap ArtProvider::CreateBitmap(const wxArtID& id, const wxArtClient& client,
 
     if (svgData.empty()) {
         // wxLogWarning("SVG file for art ID '%s' not found: %s", id, svgPath);
-        std::cout << "SVG file for art ID " << id << " not found\n";
+        // std::cout << "SVG file for art ID " << id << " not found\n";
         return wxNullBitmap;
     }
     // wxBitmapBundle bundle = wxBitmapBundle::FromSVGFile(svgPath, size);
@@ -40,5 +40,5 @@ wxString ArtProvider::GetSvgDataForId(const wxArtID& id) const {
     // if (id == "CLOCK_STOP") return "./src/build/stop.svg";
     // if (id == "CLOCK_FIX") return "./src/build/hammer.svg";
     // if (id == "OTHER_ICON_SVG") return "icons/other_icon.svg";
-    return "";
+    return wxEmptyString;
 }

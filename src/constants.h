@@ -15,6 +15,8 @@ const wxString APP_VERSION = "0.1a";
 const wxString PREF_FILE_NAME = "preferences.xml";
 const wxString STATUS_MESSAGE = "Application is ready.";
 
+// Art IDs
+
 // Other application-specific constants
 constexpr int MAX_ITEMS = 100;
 // const std::string API_ENDPOINT = "https://api.example.com/data";
