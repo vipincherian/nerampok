@@ -28,6 +28,8 @@ class StoppedClock : public IClockState {
     }
     void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
     void Stop() override { std::cout << "Already stopped.\n"; }
+    void Enter() override;
+    void Exit() override { std::cout << "Exit.\n"; }
 };
 
 #endif  // STOPPED_CLOCK_H

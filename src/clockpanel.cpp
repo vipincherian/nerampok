@@ -137,3 +137,8 @@ void ClockPanel ::OnTitlePaint(const wxPaintEvent &event) {
 
     dc.DrawText(titleText, x, y);
 }
+
+void ClockPanel::EnableStopButton() { buttonStop->Enable(); }
+void ClockPanel::DisableStopButton() { buttonStop->Disable(); }
+void ClockPanel::EnableFixButton() { buttonFix->Enable(); }
+void ClockPanel::DisableFixButton() { buttonFix->Disable(); }

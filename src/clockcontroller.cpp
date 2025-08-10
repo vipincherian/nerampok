@@ -9,7 +9,10 @@
  */
 ClockController::ClockController(IClockMediator *mediator,
                                  ContainerPanel *continer, int id)
-    : IClockController(), clockMediator(mediator), container(continer) {
+    : IClockController(),
+      IClockContext(),
+      clockMediator(mediator),
+      container(continer) {
     // The constructor is empty as the member variable is initialized in the
     // initializer list.
     wxASSERT(id >= 0);
@@ -26,7 +29,7 @@ ClockController::ClockController(IClockMediator *mediator,
     pausedClock = new PausedClock(this, clockPanel);
     alertingClock = new AlertingClock(this, clockPanel);
 
-    clock = stoppedClock;
+    ChangeStateToStopped();
 }
 ClockController::~ClockController() {
     std::cout << "Inside ~ClockController\n";
@@ -38,4 +41,29 @@ ClockController::~ClockController() {
     delete pausedClock;
     wxASSERT(alertingClock != nullptr);
     delete alertingClock;
+}
+
+void ClockController::ChangeStateToStopped() {
+    if (clock != nullptr) clock->Exit();
+    wxASSERT(stoppedClock);
+    clock = stoppedClock;
+    clock->Enter();
+}
+void ClockController::ChangeStateToPlaying() {
+    if (clock != nullptr) clock->Exit();
+    wxASSERT(playingClock);
+    clock = playingClock;
+    clock->Enter();
+}
+void ClockController::ChangeStateToPaused() {
+    if (clock != nullptr) clock->Exit();
+    wxASSERT(pausedClock);
+    clock = pausedClock;
+    clock->Enter();
+}
+void ClockController::ChangeStateToAlerting() {
+    if (clock != nullptr) clock->Exit();
+    wxASSERT(alertingClock);
+    clock = alertingClock;
+    clock->Enter();
 }

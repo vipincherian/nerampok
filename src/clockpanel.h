@@ -19,6 +19,10 @@ class ClockPanel : public wxPanel {
     int GetTitleColumnWidth();
     int GetControlsColumnWidth();
     int GetReportColumnWidth();
+    void EnableStopButton();
+    void DisableStopButton();
+    void EnableFixButton();
+    void DisableFixButton();
 
    private:
     IClockController *parentController = NULL;

@@ -5,3 +5,9 @@ StoppedClock::StoppedClock(IClockController *controller, ClockPanel *panel)
     wxASSERT(controller != nullptr);
     wxASSERT(panel != nullptr);
 }
+
+void StoppedClock::Enter() {
+    wxASSERT(panel != nullptr);
+    panel->DisableStopButton();
+    panel->DisableFixButton();
+}
