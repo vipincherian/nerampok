@@ -68,3 +68,4 @@ void ClockController::ChangeStateToAlerting() {
     clock->Enter();
 }
 void ClockController::Play() { clock->Play(); }
+void ClockController::Stop() { clock->Stop(); }

@@ -22,13 +22,10 @@ class PausedClock : public IClockState {
 
    public:
     explicit PausedClock(IClockContext* controller, ClockPanel* panel);
-    void Play() override {
-        std::cout << "Starting clock.\n";
-        // Transition to PlayingState
-    }
+    void Play() override;
     void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
-    void Stop() override { std::cout << "Already stopped.\n"; }
-    void Enter() override { std::cout << "Enter.\n"; }
+    void Stop() override;
+    void Enter() override;
     void Exit() override { std::cout << "Exit.\n"; }
 };
 

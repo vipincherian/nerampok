@@ -14,6 +14,73 @@
 #endif
 
 
+static const wxString SVG_PAUSE = 
+    R"svg(
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="64"
+   height="64"
+   viewBox="0 0 16.933333 16.933333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e94, 2025-05-08)"
+   sodipodi:docname="pause.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="8.718206"
+     inkscape:cx="23.169904"
+     inkscape:cy="38.59739"
+     inkscape:window-width="1920"
+     inkscape:window-height="1131"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffdbbe;fill-opacity:1;stroke:none;stroke-width:0.965452;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4"
+       width="12.805574"
+       height="12.789179"
+       x="2.0638795"
+       y="2.0720773" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.57554;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5"
+       width="4.550818"
+       height="12.789179"
+       x="2.0638795"
+       y="2.0720773" />
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.57554;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6"
+       width="4.550818"
+       height="12.789179"
+       x="10.318636"
+       y="2.0720773" />
+  </g>
+</svg>
+
+)svg";
 static const wxString SVG_EDIT = 
     R"svg(
 <?xml version="1.0" encoding="utf-8"?>

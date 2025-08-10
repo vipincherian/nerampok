@@ -54,6 +54,7 @@ class ClockController : IClockController, IClockContext {
     void ChangeStateToPaused() override;
     void ChangeStateToAlerting() override;
     void Play() override;
+    void Stop() override;
 
    private:
     // A reference to the mediator, which allows the controller to

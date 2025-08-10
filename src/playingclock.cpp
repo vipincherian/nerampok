@@ -8,6 +8,16 @@ PlayingClock::PlayingClock(IClockContext *controller, ClockPanel *panel)
 
 void PlayingClock::Enter() {
     wxASSERT(panel != nullptr);
+    panel->EnableStopButton();
     panel->EnableFixButton();
     panel->DisableEditButton();
+    panel->ShowPauseButton();
+}
+void PlayingClock::Play() {
+    std::cout << "Pausing clock\n";
+    controller->ChangeStateToPaused();
+}
+void PlayingClock::Stop() {
+    std::cout << "Stopping clock\n";
+    controller->ChangeStateToStopped();
 }

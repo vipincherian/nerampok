@@ -76,6 +76,7 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     cellControls->SetSizer(hsControls);
     hsControls->Layout();
     buttonStart->Bind(wxEVT_BUTTON, &ClockPanel::OnPlayButtonClick, this);
+    buttonStop->Bind(wxEVT_BUTTON, &ClockPanel::OnStopButtonClick, this);
 
     // Panel for report
     cellReport = new wxPanel(this);
@@ -145,8 +146,23 @@ void ClockPanel::EnableFixButton() { buttonFix->Enable(); }
 void ClockPanel::DisableFixButton() { buttonFix->Disable(); }
 void ClockPanel::EnableEditButton() { buttonEdit->Enable(); }
 void ClockPanel::DisableEditButton() { buttonEdit->Disable(); }
+void ClockPanel::EnablePlayButton() { buttonStart->Enable(); }
+void ClockPanel::DisablePlayButton() { buttonStart->Disable(); }
 void ClockPanel::OnPlayButtonClick(const wxCommandEvent &event) {
-    std::cout << "clicked\n";
+    std::cout << "Play button clicked\n";
     wxASSERT(parentController != nullptr);
     parentController->Play();
+}
+void ClockPanel::OnStopButtonClick(const wxCommandEvent &event) {
+    std::cout << "Stop button clicked\n";
+    wxASSERT(parentController != nullptr);
+    parentController->Stop();
+}
+void ClockPanel::ShowPlayButton() {
+    buttonStart->SetBitmap(
+        wxArtProvider::GetBitmap("CLOCK_START", wxART_OTHER, wxSize(24, 24)));
+}
+void ClockPanel::ShowPauseButton() {
+    buttonStart->SetBitmap(
+        wxArtProvider::GetBitmap("CLOCK_PAUSE", wxART_OTHER, wxSize(24, 24)));
 }

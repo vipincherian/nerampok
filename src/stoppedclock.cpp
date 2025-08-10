@@ -14,6 +14,8 @@ void StoppedClock::Play() {
 
 void StoppedClock::Enter() {
     wxASSERT(panel != nullptr);
+    panel->ShowPlayButton();
+    panel->EnablePlayButton();
     panel->DisableStopButton();
     panel->DisableFixButton();
     panel->EnableEditButton();

@@ -36,6 +36,7 @@ wxString ArtProvider::GetSvgDataForId(const wxArtID& id) const {
     if (id == "CLOCK_START") return SVG_START;
     if (id == "CLOCK_STOP") return SVG_STOP;
     if (id == "CLOCK_FIX") return SVG_HAMMER;
+    if (id == "CLOCK_PAUSE") return SVG_PAUSE;
     // if (id == "CLOCK_START") return "./src/build/start.svg";
     // if (id == "CLOCK_STOP") return "./src/build/stop.svg";
     // if (id == "CLOCK_FIX") return "./src/build/hammer.svg";
