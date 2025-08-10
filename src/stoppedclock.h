@@ -17,17 +17,15 @@
 
 class StoppedClock : public IClockState {
    private:
-    IClockController* controller = nullptr;
+    // IClockController* controller = nullptr;
+    IClockContext* controller = nullptr;
     ClockPanel* panel = nullptr;
 
    public:
-    explicit StoppedClock(IClockController* controller, ClockPanel* panel);
-    void Play() override {
-        std::cout << "Starting clock.\n";
-        // Transition to PlayingState
-    }
-    void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
-    void Stop() override { std::cout << "Already stopped.\n"; }
+    explicit StoppedClock(IClockContext* controller, ClockPanel* panel);
+    void Play() override;
+    void Pause() override { wxFAIL_MSG("Cannot pause when clock is stopped."); }
+    void Stop() override { wxFAIL_MSG("Already stopped."); }
     void Enter() override;
     void Exit() override { std::cout << "Exit.\n"; }
 };

@@ -23,6 +23,8 @@ class ClockPanel : public wxPanel {
     void DisableStopButton();
     void EnableFixButton();
     void DisableFixButton();
+    void EnableEditButton();
+    void DisableEditButton();
 
    private:
     IClockController *parentController = NULL;
@@ -41,6 +43,7 @@ class ClockPanel : public wxPanel {
     wxBitmapButton *buttonStop = nullptr;
     wxBitmapButton *buttonFix = nullptr;
     void OnTitlePaint(const wxPaintEvent &event);
+    void OnPlayButtonClick(const wxCommandEvent &event);
 };
 
 #endif

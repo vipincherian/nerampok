@@ -7,7 +7,7 @@
 #include "preferencesreader.h"
 
 ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
-    : wxPanel(parent) {
+    : wxPanel(parent), parentController(controller) {
     sizer = new wxBoxSizer(wxHORIZONTAL);
     SetSizer(sizer);
 
@@ -75,6 +75,7 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
                     wxSizerFlags::GetDefaultBorder());
     cellControls->SetSizer(hsControls);
     hsControls->Layout();
+    buttonStart->Bind(wxEVT_BUTTON, &ClockPanel::OnPlayButtonClick, this);
 
     // Panel for report
     cellReport = new wxPanel(this);
@@ -142,3 +143,10 @@ void ClockPanel::EnableStopButton() { buttonStop->Enable(); }
 void ClockPanel::DisableStopButton() { buttonStop->Disable(); }
 void ClockPanel::EnableFixButton() { buttonFix->Enable(); }
 void ClockPanel::DisableFixButton() { buttonFix->Disable(); }
+void ClockPanel::EnableEditButton() { buttonEdit->Enable(); }
+void ClockPanel::DisableEditButton() { buttonEdit->Disable(); }
+void ClockPanel::OnPlayButtonClick(const wxCommandEvent &event) {
+    std::cout << "clicked\n";
+    wxASSERT(parentController != nullptr);
+    parentController->Play();
+}

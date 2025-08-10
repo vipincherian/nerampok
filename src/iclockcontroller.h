@@ -8,6 +8,7 @@ class IClockController {
 
     // Pure virtual methods
     // virtual void Chumma() = 0;
+    virtual void Play() = 0;
 };
 
 #endif  // ICONTROLLER_H

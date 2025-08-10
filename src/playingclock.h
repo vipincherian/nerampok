@@ -17,18 +17,18 @@
 
 class PlayingClock : public IClockState {
    private:
-    IClockController* controller = nullptr;
+    IClockContext* controller = nullptr;
     ClockPanel* panel = nullptr;
 
    public:
-    explicit PlayingClock(IClockController* controller, ClockPanel* panel);
+    explicit PlayingClock(IClockContext* controller, ClockPanel* panel);
     void Play() override {
         std::cout << "Starting clock.\n";
         // Transition to PlayingState
     }
     void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
     void Stop() override { std::cout << "Already stopped.\n"; }
-    void Enter() override { std::cout << "Enter.\n"; }
+    void Enter() override;
     void Exit() override { std::cout << "Exit.\n"; }
 };
 

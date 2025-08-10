@@ -17,11 +17,11 @@
 
 class AlertingClock : public IClockState {
    private:
-    IClockController* controller = nullptr;
+    IClockContext* controller = nullptr;
     ClockPanel* panel = nullptr;
 
    public:
-    explicit AlertingClock(IClockController* controller, ClockPanel* panel);
+    explicit AlertingClock(IClockContext* controller, ClockPanel* panel);
     void Play() override {
         std::cout << "Starting clock.\n";
         // Transition to PlayingState
