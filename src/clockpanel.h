@@ -22,13 +22,14 @@ class ClockPanel : public wxPanel {
     IClockController *parentController = NULL;
     // wxPanel *containerPanel;
     // void Chumma();
-    wxPanel *cellSelect, *cellTitle = nullptr;
+    wxPanel *cellSelect, *cellTitle, *cellReport = nullptr;
     wxPanel *titleDisplay = nullptr;
     wxString titleText =
         "TimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTimerTime"
         "r";
     wxBoxSizer *sizer = nullptr;
     wxCheckBox *checkboxSelect = nullptr;
+    wxCheckBox *checkboxReport = nullptr;
     void OnTitlePaint(wxPaintEvent &event);
 };
 

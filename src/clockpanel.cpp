@@ -8,36 +8,40 @@
 ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     : wxPanel(parent) {
     sizer = new wxBoxSizer(wxHORIZONTAL);
-
     SetSizer(sizer);
+
+    // Create the panel for the select checkbox
+
     cellSelect = new wxPanel(this);
     wxBoxSizer *sizerSelect = new wxBoxSizer(wxHORIZONTAL);
     checkboxSelect = new wxCheckBox(cellSelect, wxID_ANY, "");
-    // checkboxSelect->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
-    // cellSelect->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
     sizerSelect->Add(checkboxSelect, 0, wxLEFT | wxRIGHT | wxEXPAND,
-                     //   wxSizerFlags::GetDefaultBorder());
                      Constants::getInstance().getBorder());
     cellSelect->SetSizer(sizerSelect);
     sizerSelect->Layout();
+
+    // Create the panel for title
 
     cellTitle = new wxPanel(this);
     wxBoxSizer *sizerTitle = new wxBoxSizer(wxHORIZONTAL);
     // wxColour lightBlue(200, 220, 255);
     // cellTitle->SetBackgroundColour(lightBlue);
     // cellTitle->SetMinClientSize(wxSize(100, wxDefaultSize.GetHeight()));
-
+    wxButton *buttonEdit = new wxButton(cellTitle, wxID_ANY, "Edit",
+                                        wxDefaultPosition, wxDefaultSize);
     titleDisplay = new wxPanel(cellTitle, wxID_ANY, wxDefaultPosition,
                                wxDefaultSize, wxBORDER_SUNKEN);
+    sizerTitle->Add(buttonEdit, 0, wxLEFT | wxEXPAND);
     // wxColour lightCol(250, 0, 255);
     // titleDisplay->SetBackgroundColour(lightCol);
     titleDisplay->SetBackgroundStyle(wxBG_STYLE_PAINT);
     titleDisplay->Bind(wxEVT_PAINT, &ClockPanel::OnTitlePaint, this);
     sizerTitle->Add(titleDisplay, 1, wxLEFT | wxRIGHT | wxEXPAND,
                     PreferencesReader::getInstance().getBorder());
-
     cellTitle->SetSizer(sizerTitle);
     sizerTitle->Layout();
+
+    // Panel for controls
 
     wxPanel *cellControls = new wxPanel(this);
     wxBoxSizer *hsControls = new wxBoxSizer(wxHORIZONTAL);
@@ -54,12 +58,23 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     cellControls->SetSizer(hsControls);
     hsControls->Layout();
 
-    cellSelect->SetClientSize(wxSize(200, 100));
+    // Panel for report
+    cellReport = new wxPanel(this);
+    wxBoxSizer *sizerReport = new wxBoxSizer(wxHORIZONTAL);
+    checkboxReport = new wxCheckBox(cellReport, wxID_ANY, "");
+    sizerReport->Add(checkboxReport, 0, wxLEFT | wxRIGHT | wxEXPAND,
+                     Constants::getInstance().getBorder());
+    cellReport->SetSizer(sizerReport);
+    sizerReport->Layout();
+
+    // cellSelect->SetClientSize(wxSize(200, 100));
     sizer->Add(cellSelect, 0, wxLEFT | wxEXPAND,
                wxSizerFlags::GetDefaultBorder());
     sizer->Add(cellTitle, 1, wxLEFT | wxEXPAND,
                wxSizerFlags::GetDefaultBorder());
     sizer->Add(cellControls, 0, wxLEFT | wxEXPAND,
+               wxSizerFlags::GetDefaultBorder());
+    sizer->Add(cellReport, 0, wxLEFT | wxEXPAND,
                wxSizerFlags::GetDefaultBorder());
     sizer->Layout();
 }

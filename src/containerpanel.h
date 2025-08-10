@@ -34,8 +34,8 @@ class ContainerPanel : public wxPanel {
     wxHeaderCtrlSimple *header = nullptr;
     wxHeaderColumnSimple *headerColSelect = nullptr;
     wxHeaderColumnSimple *headerColTitle = nullptr;
-    wxHeaderColumnSimple *headerColDuration = nullptr;
     wxHeaderColumnSimple *headerColControls = nullptr;
+    wxHeaderColumnSimple *headerColReport = nullptr;
     void OnSize(wxSizeEvent &event);
     void ResizeHeaderColumns();
 };

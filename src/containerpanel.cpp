@@ -19,14 +19,14 @@ ContainerPanel::ContainerPanel(IController *controller, wxFrame *parent)
     headerColSelect = new wxHeaderColumnSimple("", 100, wxALIGN_CENTER, 0x0000);
     headerColTitle =
         new wxHeaderColumnSimple("Title", 100, wxALIGN_CENTER, 0x0000);
-    headerColDuration =
-        new wxHeaderColumnSimple("Duration", 150, wxALIGN_CENTER, 0x0000);
     headerColControls =
         new wxHeaderColumnSimple("Controls", 200, wxALIGN_CENTER, 0x0000);
+    headerColReport =
+        new wxHeaderColumnSimple("Report", 150, wxALIGN_CENTER, 0x0000);
     header->AppendColumn(*headerColSelect);
     header->AppendColumn(*headerColTitle);
-    header->AppendColumn(*headerColDuration);
     header->AppendColumn(*headerColControls);
+    header->AppendColumn(*headerColReport);
 
     // 2. Main vertical sizer
     wxBoxSizer *sizer = new wxBoxSizer(wxVERTICAL);
