@@ -54,7 +54,7 @@ void Timer::RemoveObserver(ITimerObserver* observer) {
 }
 
 void Timer::OnTimer(wxTimerEvent& event) {
-    std::cout << "Inside OnTimer\n";
+    // std::cout << "Inside OnTimer\n";
     if (observers.empty()) {
         Stop();
         return;

@@ -27,6 +27,7 @@ class PlayingClock : public IClockState {
     void Stop() override;
     void Enter() override;
     void Exit() override { std::cout << "Exit.\n"; }
+    void InterimUpdate(long milliseconds) override;
 };
 
 #endif  // PLAYING_CLOCK_H

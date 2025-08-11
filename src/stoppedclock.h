@@ -28,6 +28,7 @@ class StoppedClock : public IClockState {
     void Stop() override { wxFAIL_MSG("Already stopped."); }
     void Enter() override;
     void Exit() override { std::cout << "Exit.\n"; }
+    void InterimUpdate(long milliseconds) override {};
 };
 
 #endif  // STOPPED_CLOCK_H

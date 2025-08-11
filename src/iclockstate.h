@@ -26,6 +26,7 @@ class IClockState {
     virtual void Stop() = 0;
     virtual void Enter() = 0;
     virtual void Exit() = 0;
+    virtual void InterimUpdate(long milliseconds) = 0;
 };
 
 #endif  // ICLOCKSTATE_H

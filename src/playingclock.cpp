@@ -22,3 +22,6 @@ void PlayingClock::Stop() {
     controller->ChangeStateToStopped();
     controller->StopTimerSubscription();
 }
+void PlayingClock::InterimUpdate(long milliseconds) {
+    std::cout << "Interim update" << milliseconds << "\n";
+}

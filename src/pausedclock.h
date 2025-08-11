@@ -27,6 +27,7 @@ class PausedClock : public IClockState {
     void Stop() override;
     void Enter() override;
     void Exit() override { std::cout << "Exit.\n"; }
+    void InterimUpdate(long milliseconds) override {};
 };
 
 #endif  // PAUSED_CLOCK_H

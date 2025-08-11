@@ -30,6 +30,7 @@ class AlertingClock : public IClockState {
     void Stop() override { std::cout << "Already stopped.\n"; }
     void Enter() override { std::cout << "Enter.\n"; }
     void Exit() override { std::cout << "Exit.\n"; }
+    void InterimUpdate(long milliseconds) override {};
 };
 
 #endif  // ALERTING_CLOCK_H

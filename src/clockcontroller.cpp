@@ -78,5 +78,6 @@ void ClockController::StopTimerSubscription() {
     Timer::GetInstance().RemoveObserver(this);
 }
 void ClockController::OnTimerTick(long milliseconds) {
-    std::cout << "Timer fired\n";
+    // std::cout << "Timer fired\n";
+    clock->InterimUpdate(milliseconds);
 }
