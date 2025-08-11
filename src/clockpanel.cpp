@@ -42,15 +42,21 @@ ClockPanel::ClockPanel(IClockController *controller, wxPanel *parent)
     // titleDisplay->SetBackgroundColour(lightCol);
     titleDisplay->SetBackgroundStyle(wxBG_STYLE_PAINT);
     titleDisplay->Bind(wxEVT_PAINT, &ClockPanel::OnTitlePaint, this);
-    countdownDisplay = new wxPanel(cellTitle, wxID_ANY);
+    countdownDisplay = new wxPanel(cellTitle, wxID_ANY, wxDefaultPosition,
+                                   wxDefaultSize, wxBORDER_SUNKEN);
     countdownDisplay->SetBackgroundStyle(wxBG_STYLE_PAINT);
 
     widestRepeatedDigitExtent = FindWidestRepeatedDigitExtent();
     timeSeparatorExtent = FindTimeSeparatorExtent();
 
-    countdownDisplay->SetMinClientSize(
-        wxSize((widestRepeatedDigitExtent * 3) + (timeSeparatorExtent * 6),
-               wxDefaultSize.GetHeight()));
+    // countdownDisplay->SetMinClientSize(
+    //     wxSize((widestRepeatedDigitExtent * 3) + (timeSeparatorExtent * 2) +
+    //                (PreferencesReader::getInstance().getBorder() * 2),
+    //            wxDefaultSize.GetHeight()));
+    countdownDisplay->SetMinSize(
+        wxSize(widestRepeatedDigitExtent +
+                   (PreferencesReader::getInstance().getBorder() * 2),
+               wxDefaultCoord));
     countdownDisplay->Bind(wxEVT_PAINT, &ClockPanel::OnCountdownPaint, this);
 
     sizerTitle->Add(titleDisplay, 1, wxLEFT | wxRIGHT | wxEXPAND,
@@ -179,7 +185,9 @@ wxCoord ClockPanel::FindWidestRepeatedDigitExtent() {
     wxCoord maxWidth = 0, maxHeight = 0;
 
     for (int digit = 0; digit <= 9; ++digit) {
-        wxString s = wxString::Format("%1d%1d", digit, digit);
+        wxString s = wxString::Format("%1d%1d:%1d%1d;%1d%1d", digit, digit,
+                                      digit, digit, digit, digit);
+        // wxString s = wxString::Format("%1d%1d", digit, digit);
 
         wxCoord w, h;
         dc.GetTextExtent(s, &w, &h);
