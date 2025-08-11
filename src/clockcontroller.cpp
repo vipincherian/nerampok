@@ -2,6 +2,7 @@
 
 // We assume that the IClockMediator header is available.
 #include "iclockmediator.h"
+#include "timer.h"
 
 /**
  * @brief Constructs a ClockController with a reference to a mediator.
@@ -11,6 +12,7 @@ ClockController::ClockController(IClockMediator *mediator,
                                  ContainerPanel *continer, int id)
     : IClockController(),
       IClockContext(),
+      ITimerObserver(),
       clockMediator(mediator),
       container(continer) {
     // The constructor is empty as the member variable is initialized in the
@@ -69,3 +71,12 @@ void ClockController::ChangeStateToAlerting() {
 }
 void ClockController::Play() { clock->Play(); }
 void ClockController::Stop() { clock->Stop(); }
+void ClockController::StartTimerSubscription() {
+    Timer::GetInstance().AddObserver(this);
+}
+void ClockController::StopTimerSubscription() {
+    Timer::GetInstance().RemoveObserver(this);
+}
+void ClockController::OnTimerTick(long milliseconds) {
+    std::cout << "Timer fired\n";
+}

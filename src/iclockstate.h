@@ -11,6 +11,8 @@ class IClockContext {
     virtual void ChangeStateToPlaying() = 0;
     virtual void ChangeStateToPaused() = 0;
     virtual void ChangeStateToAlerting() = 0;
+    virtual void StartTimerSubscription() = 0;
+    virtual void StopTimerSubscription() = 0;
 };
 
 class IClockState {

@@ -15,6 +15,7 @@
 #include "iclockcontroller.h"
 #include "iclockmediator.h"
 #include "iclockstate.h"
+#include "itimerobserver.h"
 #include "pausedclock.h"
 #include "playingclock.h"
 #include "stoppedclock.h"
@@ -33,7 +34,7 @@
  * and assignment operator are all explicitly deleted to enforce the
  * intended usage.
  */
-class ClockController : IClockController, IClockContext {
+class ClockController : IClockController, IClockContext, ITimerObserver {
    public:
     // Main constructor that takes a reference to the IClockMediator interface.
     // This is the only way to create an instance of this class.
@@ -55,6 +56,9 @@ class ClockController : IClockController, IClockContext {
     void ChangeStateToAlerting() override;
     void Play() override;
     void Stop() override;
+    void OnTimerTick(long milliseconds) override;
+    void StartTimerSubscription();
+    void StopTimerSubscription();
 
    private:
     // A reference to the mediator, which allows the controller to

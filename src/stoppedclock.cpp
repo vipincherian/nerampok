@@ -10,6 +10,7 @@ void StoppedClock::Play() {
     std::cout << "Starting clock.\n";
     // Transition to PlayingState
     controller->ChangeStateToPlaying();
+    controller->StartTimerSubscription();
 }
 
 void StoppedClock::Enter() {

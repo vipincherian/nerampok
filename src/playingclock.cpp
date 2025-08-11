@@ -20,4 +20,5 @@ void PlayingClock::Play() {
 void PlayingClock::Stop() {
     std::cout << "Stopping clock\n";
     controller->ChangeStateToStopped();
+    controller->StopTimerSubscription();
 }
