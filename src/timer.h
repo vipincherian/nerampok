@@ -4,9 +4,11 @@
 #include <wx/timer.h>
 
 #include <iostream>
-#include <vector>
+// #include <vector>
 
 #include "itimerobserver.h"
+
+WX_DECLARE_LIST(ITimerObserver, TimerObserverList);
 
 class Timer : public wxEvtHandler {
    public:
@@ -29,5 +31,6 @@ class Timer : public wxEvtHandler {
 
     wxTimer timer;
     wxStopWatch stopwatch;
-    std::vector<ITimerObserver*> observers;
+    // std::vector<ITimerObserver*> observers;
+    TimerObserverList observers;
 };
