@@ -16,6 +16,8 @@ class TickCounter {
     void SetLastUpdatedAt(long at);
     void SetPending(long pending);
     void Update(long at);
+    long GetLastUpdatedAt();
+    long GetPending();
 
    private:
     long at, pending = 0;

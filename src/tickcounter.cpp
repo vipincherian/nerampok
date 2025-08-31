@@ -12,7 +12,8 @@ void TickCounter::SetPending(long currentTicks) {
 }
 void TickCounter::Update(long currentTickCount) {
     wxASSERT(currentTickCount >= at);
-    long diff = at - currentTickCount;
+    long diff = currentTickCount - at;
+    // TODO: Use MAX or std::max?
     if (pending > diff) {
         pending -= diff;
     } else {
@@ -21,3 +22,5 @@ void TickCounter::Update(long currentTickCount) {
     wxASSERT(at >= 0);
     wxASSERT(pending >= 0);
 }
+long TickCounter::GetLastUpdatedAt() { return at; }
+long TickCounter::GetPending() { return pending; }

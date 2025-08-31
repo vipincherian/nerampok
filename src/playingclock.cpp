@@ -1,5 +1,7 @@
 #include "playingclock.h"
 
+#include "timer.h"
+
 PlayingClock::PlayingClock(IClockContext *controller, ClockPanel *panel,
                            TickCounter *ticks)
     : IClockState(), controller(controller), panel(panel), ticks(ticks) {
@@ -14,6 +16,9 @@ void PlayingClock::Enter() {
     panel->EnableFixButton();
     panel->DisableEditButton();
     panel->ShowPauseButton();
+
+    long tickCount = Timer::GetInstance().GetTickCount();
+    ticks->SetLastUpdatedAt(tickCount);
 }
 void PlayingClock::Play() {
     std::cout << "Pausing clock\n";
@@ -25,5 +30,8 @@ void PlayingClock::Stop() {
     controller->StopTimerSubscription();
 }
 void PlayingClock::InterimUpdate(long milliseconds) {
-    std::cout << "Interim update" << milliseconds << "\n";
+    // std::cout << "Interim update " << milliseconds << "\n";
+    ticks->Update(milliseconds);
+
+    std::cout << "Interim update " << ticks->GetPending() << "\n";
 }

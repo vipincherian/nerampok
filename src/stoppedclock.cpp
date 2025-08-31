@@ -1,5 +1,7 @@
 #include "stoppedclock.h"
 
+#include "timer.h"
+
 StoppedClock::StoppedClock(IClockContext *controller, ClockPanel *panel,
                            TickCounter *ticks)
     : IClockState(), controller(controller), panel(panel), ticks(ticks) {
@@ -10,6 +12,7 @@ StoppedClock::StoppedClock(IClockContext *controller, ClockPanel *panel,
 
 void StoppedClock::Play() {
     std::cout << "Starting clock.\n";
+
     // Transition to PlayingState
     controller->ChangeStateToPlaying();
     controller->StartTimerSubscription();
