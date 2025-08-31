@@ -20,6 +20,7 @@ class Timer : public wxEvtHandler {
 
     void AddObserver(ITimerObserver* observer);
     void RemoveObserver(ITimerObserver* observer);
+    long GetTickCount();
 
    private:
     Timer();  // Private constructor for singleton

@@ -11,7 +11,14 @@ Timer& Timer::GetInstance() {
     return instance;
 }
 
-Timer::Timer() : timer(this) { Bind(wxEVT_TIMER, &Timer::OnTimer, this); }
+Timer::Timer() : timer(this) {
+    Bind(wxEVT_TIMER, &Timer::OnTimer, this);
+
+    // Start the stopwatch, but immediately stop too
+    // as there are no observers attached
+    stopwatch.Start();
+    stopwatch.Pause();
+}
 
 Timer::~Timer() {
     Stop();
@@ -21,18 +28,19 @@ Timer::~Timer() {
 void Timer::Start(int intervalMs) {
     if (!timer.IsRunning() && !observers.IsEmpty()) {
         std::cout << "Timer started\n";
-        stopwatch.Start();
+        // stopwatch.Start();
         // TODO: Add error handling
         auto started = timer.Start(intervalMs);
         std::cout << "timer.Start returned " << started << "\n";
+        stopwatch.Resume();
     }
 }
 
 void Timer::Stop() {
     if (timer.IsRunning()) {
         timer.Stop();
+        stopwatch.Pause();
     }
-    stopwatch.Pause();
 }
 
 bool Timer::IsRunning() const { return timer.IsRunning(); }
@@ -67,6 +75,7 @@ void Timer::RemoveObserver(ITimerObserver* observer) {
     }
 }
 
+long Timer::GetTickCount() { return stopwatch.Time(); }
 void Timer::OnTimer(wxTimerEvent& event) {
     // std::cout << "Inside OnTimer\n";
     if (observers.IsEmpty()) {

@@ -12,9 +12,10 @@ class TickCounter {
    public:
     TickCounter() {};
     ~TickCounter() {};
-    inline void SetLastUpdatedAt(long at);
-    inline void SetPending(long pending);
-    inline void Update(long at);
+    // TODO: Make these inline?
+    void SetLastUpdatedAt(long at);
+    void SetPending(long pending);
+    void Update(long at);
 
    private:
     long at, pending = 0;

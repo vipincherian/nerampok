@@ -26,7 +26,8 @@ ClockController::ClockController(IClockMediator *mediator,
     clockPanel = container->AddClockPanel(this);
     wxASSERT(clockPanel != nullptr);
 
-    // ticks.SetLastUpdatedAt = Timer::GetInstance().
+    ticks.SetLastUpdatedAt(Timer::GetInstance().GetTickCount());
+    ticks.SetPending(25 * 60 * 60 * 1000);
 
     stoppedClock = new StoppedClock(this, clockPanel, &ticks);
     playingClock = new PlayingClock(this, clockPanel, &ticks);
