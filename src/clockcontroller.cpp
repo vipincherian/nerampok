@@ -26,10 +26,12 @@ ClockController::ClockController(IClockMediator *mediator,
     clockPanel = container->AddClockPanel(this);
     wxASSERT(clockPanel != nullptr);
 
-    stoppedClock = new StoppedClock(this, clockPanel);
-    playingClock = new PlayingClock(this, clockPanel);
-    pausedClock = new PausedClock(this, clockPanel);
-    alertingClock = new AlertingClock(this, clockPanel);
+    // ticks.SetLastUpdatedAt = Timer::GetInstance().
+
+    stoppedClock = new StoppedClock(this, clockPanel, &ticks);
+    playingClock = new PlayingClock(this, clockPanel, &ticks);
+    pausedClock = new PausedClock(this, clockPanel, &ticks);
+    alertingClock = new AlertingClock(this, clockPanel, &ticks);
 
     ChangeStateToStopped();
 }

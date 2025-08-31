@@ -1,9 +1,11 @@
 #include "stoppedclock.h"
 
-StoppedClock::StoppedClock(IClockContext *controller, ClockPanel *panel)
-    : IClockState(), controller(controller), panel(panel) {
+StoppedClock::StoppedClock(IClockContext *controller, ClockPanel *panel,
+                           TickCounter *ticks)
+    : IClockState(), controller(controller), panel(panel), ticks(ticks) {
     wxASSERT(controller != nullptr);
     wxASSERT(panel != nullptr);
+    wxASSERT(ticks != nullptr);
 }
 
 void StoppedClock::Play() {

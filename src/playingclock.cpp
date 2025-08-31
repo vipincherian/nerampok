@@ -1,9 +1,11 @@
 #include "playingclock.h"
 
-PlayingClock::PlayingClock(IClockContext *controller, ClockPanel *panel)
-    : IClockState(), controller(controller), panel(panel) {
+PlayingClock::PlayingClock(IClockContext *controller, ClockPanel *panel,
+                           TickCounter *ticks)
+    : IClockState(), controller(controller), panel(panel), ticks(ticks) {
     wxASSERT(controller != nullptr);
     wxASSERT(panel != nullptr);
+    wxASSERT(ticks != nullptr);
 }
 
 void PlayingClock::Enter() {

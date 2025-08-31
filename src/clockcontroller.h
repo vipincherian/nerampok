@@ -19,6 +19,7 @@
 #include "pausedclock.h"
 #include "playingclock.h"
 #include "stoppedclock.h"
+#include "tickcounter.h"
 
 // Forward declaration of the IClockMediator interface.
 // We assume this interface is defined in a separate header.
@@ -73,6 +74,8 @@ class ClockController : IClockController, IClockContext, ITimerObserver {
     PlayingClock* playingClock = nullptr;
     PausedClock* pausedClock = nullptr;
     AlertingClock* alertingClock = nullptr;
+
+    TickCounter ticks;
 };
 
 #endif  // CLOCK_CONTROLLER_H

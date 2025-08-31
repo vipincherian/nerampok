@@ -14,14 +14,17 @@
 #include "iclockcontroller.h"
 // #include "iclockmediator.h"
 #include "iclockstate.h"
+#include "tickcounter.h"
 
 class PausedClock : public IClockState {
    private:
     IClockContext* controller = nullptr;
     ClockPanel* panel = nullptr;
+    TickCounter* ticks = nullptr;
 
    public:
-    explicit PausedClock(IClockContext* controller, ClockPanel* panel);
+    explicit PausedClock(IClockContext* controller, ClockPanel* panel,
+                         TickCounter* ticks);
     void Play() override;
     void Pause() override { std::cout << "Cannot pause. Clock is stopped.\n"; }
     void Stop() override;

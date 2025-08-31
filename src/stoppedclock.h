@@ -14,15 +14,18 @@
 #include "iclockcontroller.h"
 // #include "iclockmediator.h"
 #include "iclockstate.h"
+#include "tickcounter.h"
 
 class StoppedClock : public IClockState {
    private:
     // IClockController* controller = nullptr;
     IClockContext* controller = nullptr;
     ClockPanel* panel = nullptr;
+    TickCounter* ticks = nullptr;
 
    public:
-    explicit StoppedClock(IClockContext* controller, ClockPanel* panel);
+    explicit StoppedClock(IClockContext* controller, ClockPanel* panel,
+                          TickCounter* ticks);
     void Play() override;
     void Pause() override { wxFAIL_MSG("Cannot pause when clock is stopped."); }
     void Stop() override { wxFAIL_MSG("Already stopped."); }

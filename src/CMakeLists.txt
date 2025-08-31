@@ -31,6 +31,7 @@ set(SOURCES
     pausedclock.cpp
     alertingclock.cpp
     timer.cpp
+    tickcounter.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

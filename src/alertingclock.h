@@ -14,14 +14,17 @@
 #include "iclockcontroller.h"
 // #include "iclockmediator.h"
 #include "iclockstate.h"
+#include "tickcounter.h"
 
 class AlertingClock : public IClockState {
    private:
     IClockContext* controller = nullptr;
     ClockPanel* panel = nullptr;
+    TickCounter* ticks = nullptr;
 
    public:
-    explicit AlertingClock(IClockContext* controller, ClockPanel* panel);
+    explicit AlertingClock(IClockContext* controller, ClockPanel* panel,
+                           TickCounter* ticks);
     void Play() override {
         std::cout << "Starting clock.\n";
         // Transition to PlayingState
